@@ -1,8 +1,10 @@
+#!/usr/bin/python
 '''
 Created on Apr 11, 2011
 
 @author: smotko
 '''
+import time
 
 from Xlib import display
  
@@ -13,4 +15,5 @@ def mousepos():
  
 if __name__ == "__main__":
     while(True):
+        time.sleep(1)
         print("The mouse position on the screen is {0}".format(mousepos()))
