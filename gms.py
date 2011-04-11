@@ -12,4 +12,5 @@ def mousepos():
     return data["root_x"], data["root_y"]
  
 if __name__ == "__main__":
-    print("The mouse position on the screen is {0}".format(mousepos()))
+    while(True):
+        print("The mouse position on the screen is {0}".format(mousepos()))

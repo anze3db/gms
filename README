@@ -1,1 +1,3 @@
 Generic mouse gestures for Linux
+
+Dependencies: python-xlib
