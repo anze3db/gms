@@ -19,17 +19,33 @@ def OnKeyDown(event):
 def OnKeyUp(event):
     print event
  
+def OnMouseDown(event):
+    print event
+
+
+
+def OnMoseUp(event):
+    print event
+
+
 if __name__ == "__main__":
     
     
     import pyxhook as pimp
     
     hooker = pimp.HookManager()
+    
+    # Keyboard start hookin':
     hooker.HookKeyboard()
     hooker.KeyDown = OnKeyDown
     hooker.KeyUp = OnKeyUp
-    hooker.start()
     
+    # Mouse start hookin':
+    hooker.HookMouse()
+    hooker.MouseAllButtonsDown = OnMouseDown
+    hooker.MouseAllButtonsUp = OnMoseUp
+    
+    hooker.start()
     
     #KEYBOARD = '/dev/input/by-path/platform-i8042-serio-0-event-kbd'
     
