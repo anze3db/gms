@@ -3,4 +3,11 @@ Usefull links:
 Xlib, raise window:
 http://stackoverflow.com/questions/1616628/python-xlib-how-can-i-raisebring-to-top-windows
 
+We should really checkout the Xlib Manual:
 
+http://tronche.com/gui/x/xlib/
+http://python-xlib.sourceforge.net/doc/html/index.html
+
+Tryout the examples here:
+
+http://sourceforge.net/projects/python-xlib/
