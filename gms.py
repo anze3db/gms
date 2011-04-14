@@ -6,10 +6,13 @@ Created on Apr 11, 2011
 import Xlib
 import Xlib.display
 import time
+import sys
  
 def OnKeyDown(event):
+    if event.Key == 'x':
+        sys.exit()
     print event
-
+    
 def OnKeyUp(event):
     print event
  
