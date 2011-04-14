@@ -13,16 +13,32 @@ def mousepos():
     data = display.Display().screen().root.query_pointer()._data
     return data["root_x"], data["root_y"]
  
+def OnKeyDown(event):
+    print event
+
+def OnKeyUp(event):
+    print event
+ 
 if __name__ == "__main__":
     
-    KEYBOARD = '/dev/input/by-path/platform-i8042-serio-0-event-kbd'
     
-    while True:
-        scanner_device = open(KEYBOARD,"r")
-        # log stuff to file here
-        print repr(scanner_device.readline())
-        scanner_device.close()
-        time.sleep(0.1)
+    import pyxhook as pimp
+    
+    hooker = pimp.HookManager()
+    hooker.HookKeyboard()
+    hooker.KeyDown = OnKeyDown
+    hooker.KeyUp = OnKeyUp
+    hooker.start()
+    
+    
+    #KEYBOARD = '/dev/input/by-path/platform-i8042-serio-0-event-kbd'
+    
+    #while True:
+    #    scanner_device = open(KEYBOARD,"r")
+    #    # log stuff to file here
+    #    print repr(scanner_device.readline())
+    #    scanner_device.close()
+    #    time.sleep(0.1)
         
     
     #while(True):
