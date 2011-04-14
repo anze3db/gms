@@ -3,15 +3,9 @@ Created on Apr 11, 2011
 
 @author: smotko
 '''
-
 import Xlib
 import Xlib.display
 import time
- 
-def mousepos():
-    """mousepos() --> (x, y) get  the mouse coordinates on the screen (linux, Xlib)."""
-    data = display.Display().screen().root.query_pointer()._data
-    return data["root_x"], data["root_y"]
  
 def OnKeyDown(event):
     print event
@@ -22,11 +16,10 @@ def OnKeyUp(event):
 def OnMouseDown(event):
     print event
 
-
-
 def OnMoseUp(event):
-    print event
+    print event.MessageName, event.Position, event.Window, event.WindowName, event.WindowProcName
 
+# EVENT: 'MessageName', 'Position', 'Window', 'WindowName', 'WindowProcName'
 
 if __name__ == "__main__":
     
