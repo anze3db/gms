@@ -42,16 +42,4 @@ if __name__ == "__main__":
     hooker.MouseAllButtonsUp = OnMoseUp
     
     hooker.start()
-    
-    #KEYBOARD = '/dev/input/by-path/platform-i8042-serio-0-event-kbd'
-    
-    #while True:
-    #    scanner_device = open(KEYBOARD,"r")
-    #    # log stuff to file here
-    #    print repr(scanner_device.readline())
-    #    scanner_device.close()
-    #    time.sleep(0.1)
-        
-    
-    #while(True):
-        #print("{0}".format(mousepos()))
+ 
