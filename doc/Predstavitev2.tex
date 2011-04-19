@@ -1,0 +1,104 @@
+\documentclass[10pt,landscape,a4paper,oneside]{article}
+
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%lol, windows newline bug poje to vrsto na začetku včasih :P
+%\documentclass[10pt,a4paper,oneside]{book}
+
+%\usepackage[slovene]{babel}
+\usepackage[utf8x]{inputenc}
+%\usepackage[fleqn]{amsmath}%fleqn - levo zamaknjene enačbe
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+%\usepackage[x11names, rgb]{xcolor}
+%\usepackage{tikz}
+%\usetikzlibrary{calc,automata,snakes,arrows,shapes,decorations,positioning,shapes.arrows,chains,shadows}
+
+\newenvironment{items}{
+\begin{itemize}
+	\setlength{\itemsep}{2pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\topsep}{0pt}
+}{\end{itemize}}
+
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\ \\[1cm]
+{\Huge\bf Operacijski sistemi 2}\\[1cm]
+{\resizebox{13cm}{!}{\bf{Mouse gestures for Linux}}}\\[2cm]
+{\Large\bf Miha Zidar}\\[0.5cm]
+{\Large\bf Anže Pečar}\\[0.5cm]
+{\Large\bf Matic Potočnik}\\[2cm]
+
+{\huge \today}\ \\[1.55cm]
+
+\end{center}
+\end{titlepage}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Problemsko področje}\\[2cm]
+	\begin{items}
+	\item \mbox{Interakcija z računalnikom}
+	\item \mbox{Uporaba miške za napredno upravljanje s programi}
+	\item \mbox{Program prepoznava geste in izvede določene akcije}
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Obstoječe rešitve}\\[2cm]
+	\begin{items}
+	\item \mbox{StrokeIt na Windows}
+	\item \mbox{Malo morje nepopolnih Linux programov}
+	\item \mbox{Notranje implementacije (npr. Opera, Firefox, \dots)}
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Arhitekturna zasnova}\\[2cm]
+	\begin{items}
+	\item \mbox{Zajem tipk in premikov miške}
+	\item \mbox{Prepoznavanje gest}
+	\item \mbox{Izvedba primernih akcij}
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Cilji}\\[1cm]
+	\begin{items}
+	\item \mbox{Upravljanje z okni}
+	\item \mbox{Pošiljanje kombinacij tipk}
+	\end{items}\ \\[2cm]
+	\Huge\mbox{\bf Omejitve}\\[1cm]
+	\begin{items}
+	\item \mbox{Konflikti z uporabljenimi kombinacijami tipk}
+	\item \mbox{Preprečevanje privzete akcije}
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Uporabniška interakcija}\\[2cm]
+	\begin{items}
+	\item \mbox{Okno z nastavitvami gest}
+	\item \mbox{Določitev akcij za geste}
+	\item \mbox{Tipka + Premik miške = Akcija}
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Povezovanje z ostalimi}\\[2cm]
+	\begin{items}
+	\item \mbox{Morda kdo potrebuje keylogger? :P}
+	\end{items}
+\end{center}
+
+
+\end{document}
