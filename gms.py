@@ -43,8 +43,10 @@ def record_mouse_pos():
     global rightMousePressed
     while rightMousePressed:
         gesture.append(mousepos())
-    print gesture
-        
+    parse_gesture(gesture)
+
+def parse_gesture(coordinates):
+    print coordinates        
 
 def mousepos():
     """mousepos() --> (x, y) get the mouse coordinates on the screen (linux, Xlib)."""
