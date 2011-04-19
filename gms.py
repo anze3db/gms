@@ -4,9 +4,10 @@ Created on Apr 11, 2011
 
 @authors: Anze, Matic, Miha
 '''
+
 from sys import exit
 from Xlib import display
-import thread
+from thread import start_new_thread
 
 superPressed = False
 rightMousePressed = False
@@ -31,7 +32,7 @@ def OnMouseDown(event):
         rightMousePressed = True
         
         if superPressed:
-            thread.start_new_thread(record_mouse_pos, ())
+            start_new_thread(record_mouse_pos, ())
         
 def OnMoseUp(event):
     if event.MessageName == 'mouse right up':
