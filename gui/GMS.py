@@ -44,7 +44,7 @@ class GMS(wx.Frame):
         # end wxGlade
         
     def setClicked(self, value):
-        # self.clicked_window.Value = value
+        self.clicked_window.SetValue(value)
         pass
     def setOutput(self, value):
         
