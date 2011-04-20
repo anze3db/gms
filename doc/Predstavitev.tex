@@ -1,0 +1,74 @@
+\documentclass[10pt,landscape,a4paper,oneside]{article}
+
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%dbfgdfgdf
+%lol, windows newline bug poje to vrsto na začetku včasih :P
+%\documentclass[10pt,a4paper,oneside]{book}
+
+%\usepackage[slovene]{babel}
+\usepackage[utf8x]{inputenc}
+%\usepackage[fleqn]{amsmath}%fleqn - levo zamaknjene enačbe
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+%\usepackage[x11names, rgb]{xcolor}
+%\usepackage{tikz}
+%\usetikzlibrary{calc,automata,snakes,arrows,shapes,decorations,positioning,shapes.arrows,chains,shadows}
+
+\newenvironment{items}{
+\begin{itemize}
+	\setlength{\itemsep}{2pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\topsep}{0pt}
+}{\end{itemize}}
+
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\ \\[1cm]
+{\Huge\bf Operacijski sistemi 2}\\[1cm]
+{\resizebox{13cm}{!}{\bf{Mouse gestures for Linux}}}\\[2cm]
+{\Large\bf Miha Zidar}\\[0.5cm]
+{\Large\bf Anže Pečar}\\[0.5cm]
+{\Large\bf Matic Potočnik}\\[2cm]
+
+{\huge \today}\ \\[1.55cm]
+
+\end{center}
+\end{titlepage}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Opis zamisli}\\[2cm]
+	\begin{items}
+	\item Program teče v ozadju in spremlja gibanje miške
+	\item Začetek geste označuje posebna kombinacija tipk npr. super+right-click
+	\item Če program prepozna storjeno gesto, izvede določeno akcijo
+	\item Preko grafičnega vmesnika je možnost ustvarjanja gest in dodajanja akcij
+	\end{items}
+\end{center}
+\pagebreak
+\begin{center}
+	\Huge\mbox{\bf Osnovni cilji}\\[2cm]
+	\begin{items}
+	\item \mbox{Olajašati rokovanje z računalnikom}
+	\item \mbox{Pohitritev pogosto rabljenih akcij}
+	\item \mbox{Narediti uporabno aplikacijo}
+	\end{items}
+\end{center}
+\begin{center}
+	\Huge\mbox{\bf Osnovne zahteve in omejitve}\\[2cm]
+	\begin{items}
+	\item \mbox{Preprečiti je potrebno privzeto akcijo}
+	\item \mbox{Možnost nastavljanja različnih gest in profilov}
+	\end{items}
+\end{center}
+
+
+\end{document}
