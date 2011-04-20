@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import Xlib
 import Xlib.display
 import time
