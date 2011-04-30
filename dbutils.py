@@ -18,15 +18,12 @@ class dbutils:
         self.conn.commit()
 
     # TODO: Move settings into own model class
-    def settingsSet(self, key, value):
-        cmd = "SELECT * FROM settings WHERE key = ?"
-        r = self.c.execute(cmd, (key,)).fetchone()
-
-        
-        if type(r) is NoneType:
-            self.c.execute("INSERT INTO settings VALUES(?,?)", (key, value))
-        else:
+    def settingsSet(self, key, value):       
+        if self.settingsGet(key):
             self.c.execute("UPDATE settings SET value = ? WHERE key = ?", (value, key))
+        else:
+            self.c.execute("INSERT INTO settings VALUES(?,?)", (key, value))
+            
         
         self.conn.commit()
         
