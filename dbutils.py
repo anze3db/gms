@@ -17,6 +17,7 @@ class dbutils:
         self.conn.execute(cmd)
         self.conn.commit()
 
+    # TODO: Move settings into own model class
     def settingsSet(self, key, value):
         cmd = "SELECT * FROM settings WHERE key = ?"
         r = self.c.execute(cmd, (key,)).fetchone()
@@ -24,10 +25,8 @@ class dbutils:
         
         if type(r) is NoneType:
             self.c.execute("INSERT INTO settings VALUES(?,?)", (key, value))
-            print "inserting new", key, value
         else:
-            self.c.execute("UPDATE settings SET value = ? WHERE key = ?", (key, value))
-            print "updating old", key, value
+            self.c.execute("UPDATE settings SET value = ? WHERE key = ?", (value, key))
         
         self.conn.commit()
         
@@ -47,9 +46,17 @@ class dbutils:
     
 
 if __name__ == '__main__':
+    # Usage example:
     db = dbutils()
-    db.settingsDelete('test')
-    print db.settingsGet('test')
-    print db.settingsGet('m')
-    print db.settingsGet('muca')
+    
+    # Add new key value pair:
+    db.settingsSet('foo', 'bar')
+    print db.settingsGet('foo')
+    
+    # Modify value of foo:
+    db.settingsSet('foo', 'buz')
+    print db.settingsGet('foo')
+
+    # Cleanup:
+    db.settingsDelete('foo')
     
