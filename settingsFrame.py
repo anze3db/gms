@@ -2,7 +2,7 @@
 
 import wx
 class SettingsFrame(wx.Frame):
-    """ We simply derive a new class of Frame. """
+
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, title=title, size=(400,200))
                 
@@ -32,7 +32,7 @@ class SettingsFrame(wx.Frame):
         self.SetMenuBar(menuBar)
 
     def OnAbout(self, e):
-        dlg = wx.MessageDialog(self, "Mouse Gestures for Linux. By Anze, Miha, Matic.", "About GMS")
+        dlg = wx.MessageDialog(self, "Mouse Gestures for Linux. By Anze, Miha, Matic.", "About GMS", wx.OK)
         dlg.ShowModal()
         dlg.Destroy()
         
