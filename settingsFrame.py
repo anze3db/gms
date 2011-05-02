@@ -4,16 +4,29 @@ import wx
 class SettingsFrame(wx.Frame):
 
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, title=title, size=(400,200))
+        wx.Frame.__init__(self, parent, title=title, size=(400,-1))
                 
         #Status bar:
         # self.CreateStatusBar()
         
+        self.panel = wx.Panel(self,-1)
+        from models import settings
+        settings.set('default_key', '<super>')
+        self.btnKey = wx.Button(self.panel, -1, "Current GMS &key is " + str(settings.get('default_key')) )    
+        
+        self.sizerHor = wx.BoxSizer(wx.HORIZONTAL)
+        
+        
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.btnKey, 0, wx.ALIGN_CENTER)
+        self.panel.SetSizer(self.sizer)
+
+                
         #Menu:
         self._menuBar()
         
         self.Show(True)
-        
+    
     def _menuBar(self):
         file = wx.Menu()
         
@@ -44,5 +57,5 @@ class SettingsFrame(wx.Frame):
         dlg.ShowModal()
  
 app = wx.App(False)
-frame = SettingsFrame(None, 'Small editor')
+frame = SettingsFrame(None, 'GMS Settings')
 app.MainLoop()
