@@ -13,10 +13,21 @@ superPressed = False
 rightMousePressed = False
 frame = False
  
+
+def openSettings():
+    from settingsFrame import SettingsFrame
+    from wx import App
+    app = App(False)
+    frame = SettingsFrame(None, 'GMS Settings')
+    app.MainLoop()
+
+
 def OnKeyDown(event):
     global superPressed
     if event.Key == 'x':
         exit()
+    elif event.Key == 's':
+        openSettings()
     if event.Key == 'Super_L':
         superPressed = True
         

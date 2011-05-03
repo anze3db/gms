@@ -105,6 +105,7 @@ class GrabKeyFrame(wx.Dialog):
         self.Parent.OnKeySelect(key)
         self.Close()
  
-app = wx.App(False)
-frame = SettingsFrame(None, 'GMS Settings')
-app.MainLoop()
+if __name__ == '__main__': 
+    app = wx.App(False)
+    frame = SettingsFrame(None, 'GMS Settings')
+    app.MainLoop()
