@@ -8,7 +8,7 @@ Created on Apr 11, 2011
 from sys import exit
 from Xlib import display
 from thread import start_new_thread
-
+from models import settings
 superPressed = False
 rightMousePressed = False
 frame = False
@@ -24,16 +24,18 @@ def openSettings():
 
 def OnKeyDown(event):
     global superPressed
+    print event.Key, settings.get('default_key')
     if event.Key == 'x':
         exit()
     elif event.Key == 's':
         openSettings()
-    if event.Key == 'Super_L':
+    if event.Key == settings.get('default_key'):
         superPressed = True
         
 def OnKeyUp(event):
     global superPressed
-    if event.Key == 'Super_L':
+    
+    if event.Key == settings.get('default_key'):
         superPressed = False
         
 def OnMouseDown(event):

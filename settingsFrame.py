@@ -93,11 +93,11 @@ class GrabKeyFrame(wx.Dialog):
         # TODO: Figure out why alt and super are both returning 307
         
         if e.GetKeyCode() == 307:
-            key = "<super>"
+            key = "Super_L"
         elif e.GetKeyCode() == 308:
-            key = "<ctrl>"
+            key = "Control_L"
         elif e.GetKeyCode() == 306:
-            key = "<shift>"
+            key = "Shift_L"
         else:
             self.lblKey.SetLabel("You can only bind <shift>, <ctrl>, <super>, <alt>")
             return 
