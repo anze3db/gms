@@ -1,22 +1,27 @@
 #!/usr/bin/python
 
-import sqlite3
-
 class db:
-    def __init__(self):
-        self.conn = sqlite3.connect('gms.db')
-        self.conn.row_factory = sqlite3.Row        
-        self.c = self.conn.cursor()
+    
+    @staticmethod
+    def q(sql, params = ()):
+        import sqlite3
+        conn = sqlite3.connect('gms.db')
+        conn.row_factory = sqlite3.Row        
+        c = conn.cursor()
         
+        query = c.execute(sql, params)
+        
+        conn.commit()
+        
+        # TODO: If I close it here fetchall() doesn't work later:
+        #conn.close()
+        
+        return query
 
-    def __del__(self):
-        #self.conn.close()
-        pass
-        
-    def createDatabase(self):
+    @staticmethod        
+    def createDatabase():
         cmd = "CREATE TABLE settings (key TEXT, value TEXT);"
-        self.conn.execute(cmd)
-        self.conn.commit()
+        db.q(cmd)
 
 if __name__ == '__main__':
     pass
