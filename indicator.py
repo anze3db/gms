@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import pygtk
 import gtk
 import appindicator
@@ -41,6 +42,7 @@ class AppIndicatorExample:
 
 def main():
     gtk.main()
+    
     return 0
 
 if __name__ == "__main__":
