@@ -27,8 +27,8 @@ def OnKeyDown(event):
     print event.Key, settings.get('default_key')
     if event.Key == 'x':
         exit()
-    elif event.Key == 's':
-        openSettings()
+    #elif event.Key == 's':
+        #openSettings()
     if event.Key == settings.get('default_key'):
         superPressed = True
         
@@ -96,6 +96,12 @@ if __name__ == "__main__":
     hooker.MouseAllButtonsUp = OnMoseUp
     
     hooker.start()
+    
+    # Show indicator applet
+    from indicator import AppIndicator
+    import gtk
+    indicator = AppIndicator()
+    gtk.main()
 
     
  

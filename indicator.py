@@ -3,7 +3,7 @@ import pygtk
 import gtk
 import appindicator
 
-class AppIndicatorExample:
+class AppIndicator:
     def __init__(self):
         self.ind = appindicator.Indicator ("example-simple-client", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status (appindicator.STATUS_ACTIVE)
@@ -45,5 +45,5 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    indicator = AppIndicatorExample()
+    indicator = AppIndicator()
     main()
