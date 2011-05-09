@@ -15,22 +15,15 @@ class AppIndicatorExample:
 
         # create items for the menu - labels, checkboxes, radio buttons and images are supported:
         
-        item = gtk.MenuItem("Regular Menu Item")
-        item.show()
-        self.menu.append(item)
+        settings = gtk.MenuItem("Settings")
+        settings.show()
+        settings.connect("activate", self.settings)
+        self.menu.append(settings)
 
-        check = gtk.CheckMenuItem("Check Menu Item")
-        check.show()
-        self.menu.append(check)
-
-        radio = gtk.RadioMenuItem(None, "Radio Menu Item")
-        radio.show()
-        self.menu.append(radio)
-
-        image = gtk.ImageMenuItem(gtk.STOCK_QUIT)
-        image.connect("activate", self.quit)
-        image.show()
-        self.menu.append(image)
+        quit = gtk.ImageMenuItem(gtk.STOCK_QUIT)
+        quit.connect("activate", self.quit)
+        quit.show()
+        self.menu.append(quit)
                     
         self.menu.show()
 
@@ -38,7 +31,13 @@ class AppIndicatorExample:
 
     def quit(self, widget, data=None):
         gtk.main_quit()
-
+        
+    def settings(self, widget, data=None):
+        from settingsFrame import SettingsFrame
+        from wx import App
+        app = App(False)
+        frame = SettingsFrame(None, 'GMS Settings')
+        app.MainLoop()
 
 def main():
     gtk.main()
