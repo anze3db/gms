@@ -51,6 +51,7 @@ def OnMouseDown(event):
         if superPressed:
             start_new_thread(record_mouse_pos, ())
         
+        
 def OnMoseUp(event):
     if event.MessageName == 'mouse right up':
         global rightMousePressed
@@ -76,11 +77,7 @@ def mousepos():
 
 # EVENT: 'MessageName', 'Position', 'Window', 'WindowName', 'WindowProcName'
 
-
-
-if __name__ == "__main__":
-    
-    
+def setup_hookers():
     import pyxhook as pimp
     
     hooker = pimp.HookManager()
@@ -96,12 +93,19 @@ if __name__ == "__main__":
     hooker.MouseAllButtonsUp = OnMoseUp
     
     hooker.start()
+
+if __name__ == "__main__":
     
-    # Show indicator applet
+    setup_hookers()
     from indicator import AppIndicator
     import gtk
     indicator = AppIndicator()
     gtk.main()
+    
+    
+    
+    # Show indicator applet
+    
 
     
  

@@ -10,6 +10,7 @@ class AppIndicator:
         self.ind.set_attention_icon ("indicator-messages-new")
         self.ind.set_icon("distributor-logo")
 
+
         # create a menu
         self.menu = gtk.Menu()
 
@@ -30,7 +31,8 @@ class AppIndicator:
         self.ind.set_menu(self.menu)
 
     def quit(self, widget, data=None):
-        gtk.main_quit()
+        exit()
+        
         
     def settings(self, widget, data=None):
         from settingsFrame import SettingsFrame
@@ -40,8 +42,7 @@ class AppIndicator:
         app.MainLoop()
 
 def main():
-    gtk.main()
-    
+    gtk.main()    
     return 0
 
 if __name__ == "__main__":
