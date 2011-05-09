@@ -91,8 +91,10 @@ def setup_hookers():
     hooker.HookMouse()
     hooker.MouseAllButtonsDown = OnMouseDown
     hooker.MouseAllButtonsUp = OnMoseUp
-    
+    hooker.setDaemon(True)
     hooker.start()
+    
+    
 
 if __name__ == "__main__":
     

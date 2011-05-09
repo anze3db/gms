@@ -1,7 +1,11 @@
 #!/usr/bin/python
 import pygtk
+pygtk.require("2.0")
+
 import gtk
 import appindicator
+
+from threading import Thread
 
 class AppIndicator:
     def __init__(self):
@@ -29,22 +33,55 @@ class AppIndicator:
         self.menu.show()
 
         self.ind.set_menu(self.menu)
+        
+        self.bg = Thread(target=self.start_log)
+        self.bg.start()
 
     def quit(self, widget, data=None):
-        exit()
-        
+        gtk.main_quit()
         
     def settings(self, widget, data=None):
+        
+        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.button = gtk.Button("Hello World")
+        self.button.show()
+        self.window.add(self.button)
+        self.window.show()
+        
+        #self.th = Thread(target=self.settings_start)
+        #self.th.setDaemon(True)
+        #self.th.start()
+
+    def settings_start(self):
         from settingsFrame import SettingsFrame
         from wx import App
         app = App(False)
         frame = SettingsFrame(None, 'GMS Settings')
         app.MainLoop()
+        
+        
+    def start_log(self):
+        from gms import setup_hookers
+        
+        setup_hookers()
+        
+    def main(self):
+        """
+            This function starts GTK drawing the GUI and responding to events
+            like button clicks
+        """
+ 
+        gtk.main()
+
 
 def main():
-    gtk.main()    
+    
     return 0
 
 if __name__ == "__main__":
     indicator = AppIndicator()
-    main()
+    gtk.gdk.threads_init()
+    gtk.gdk.threads_enter()
+    indicator.main()    
+    gtk.gdk.threads_leave()
+
