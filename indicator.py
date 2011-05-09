@@ -43,7 +43,7 @@ class AppIndicator:
     def settings(self, widget, data=None):
         
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.button = gtk.Button("Hello World")
+        self.button = gtk.Button("Need to rewrite settingsFrame in gtk")
         self.button.show()
         self.window.add(self.button)
         self.window.show()
