@@ -42,16 +42,10 @@ class AppIndicator:
         
     def settings(self, widget, data=None):
         
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.button = gtk.Button("Need to rewrite settingsFrame in gtk")
-        self.button.show()
-        self.window.add(self.button)
-        self.window.show()
+        from settingsFrame import SettingsFrame
         
-        #self.th = Thread(target=self.settings_start)
-        #self.th.setDaemon(True)
-        #self.th.start()
-
+        SettingsFrame()
+        
     def settings_start(self):
         from settingsFrame import SettingsFrame
         from wx import App

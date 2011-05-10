@@ -1,111 +1,101 @@
 #!/usr/bin/env python
 
-import wx
-class SettingsFrame(wx.Frame):
+import pygtk
+pygtk.require('2.0')
+import gtk
+from models import settings
 
-    def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, title=title, size=(400,-1))
-                
-        #Status bar:
-        # self.CreateStatusBar()
-        
-        self.panel = wx.Panel(self,-1)
-        from models import settings
-
-        self.btnKey = wx.Button(self.panel, -1, str(settings.get('default_key')) )    
-        
-        self.sizerHor = wx.BoxSizer(wx.HORIZONTAL)
-        
-        
-        self.sizer = wx.BoxSizer(wx.VERTICAL)
-        self.sizer.Add(self.btnKey, 0, wx.ALIGN_CENTER)
-        self.panel.SetSizer(self.sizer)
-
-        self.Bind(wx.EVT_BUTTON, self.OnSetKey, self.btnKey)
-        
-        #Menu:
-        self._menuBar()
-        self.Centre()
-        self.Show(True)
+class SettingsFrame(gtk.Window):
     
-    def _menuBar(self):
-        file = wx.Menu()
-        
-        itemExit = file.Append(wx.ID_EXIT,"E&xit"," Terminate the program")
-        
-        about = wx.Menu()
-        itemAbout = about.Append(wx.ID_ABOUT, "&About", "About this application")
-        
-        menuBar = wx.MenuBar()
-        menuBar.Append(file, "&File")
-        menuBar.Append(about, "&About")
-        
-        # Set events:
-        self.Bind(wx.EVT_MENU, self.OnAbout, itemAbout)
-        self.Bind(wx.EVT_MENU, self.OnExit, itemExit)
-        self.SetMenuBar(menuBar)
+    TITLE = "GMS Settings"
     
-    def OnSetKey(self,e):
-        my = GrabKeyFrame(self, "Grab a key")
-        my.ShowModal()
+    def __init__(self):
+        super(SettingsFrame, self).__init__()
+        
+        self.set_title(self.TITLE)
+        self.set_position(gtk.WIN_POS_CENTER)
+        self.set_border_width(10)
+        
+        # Set icons on buttons
+        #settings = gtk.settings_get_default()
+        #settings.props.gtk_button_images = True
+        
+        hbox1 = gtk.HBox(False, 0)
+        hbox2 = gtk.HBox(False, 10)
+        vbox = gtk.VBox(False, 3)
+        
+        valign = gtk.Alignment(0, 1, 0, 0)
+        vbox.pack_start(valign)
+
+        label = gtk.Label("Set default key")
+        
+        self.set = gtk.Button(settings.get("default_key"))
+        self.set.connect("clicked", self.on_set)
+        
+
+        hbox2.add(label)
+        hbox2.add(self.set)
+        halign = gtk.Alignment(0, 1, 0, 0)
+        
+        halign.add(hbox2)
+        vbox.pack_start(halign, False, False, 3)
+        
+        ok = gtk.Button(stock=gtk.STOCK_CLOSE)
+        ok.connect("clicked", self.on_close)
+        
+        hbox1.add(ok)
+        halign = gtk.Alignment(1, 0, 0, 0)
+        
+        halign.add(hbox1)
+        vbox.pack_start(halign, False, False, 3)
+
+        self.add(vbox)
+        
+        self.connect("destroy", self.on_close)
+        self.show_all()
+
+    def on_set(self, widget):
+        
+        self.mody = gtk.Window()
+        self.mody.set_modal(True)
+        self.mody.set_title("Grab")
+        self.mody.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.mody.set_border_width(20)
+        self.mody.add_events(gtk.gdk.KEY_PRESS)
+        self.mody.connect("key_press_event", self.on_grab)
         
         
-    def OnAbout(self, e):
-        dlg = wx.MessageDialog(self, "Mouse Gestures for Linux. By Anze, Miha, Matic.", "About GMS", wx.OK)
-        dlg.ShowModal()
-        dlg.Destroy()
         
-    def OnExit(self, e):
-        self.Close(True)  # Close the frame.
+        label = gtk.Label("Press a key...")
+        self.mody.add(label)
+        self.mody.show_all()
         
-    def OnOpen(self, e): 
-        dlg = wx.FileDialog(self, "Choose", '', "", "*.*", wx.OPEN)
-        dlg.ShowModal()
+    def on_grab(self, widget, event):
         
-    def OnKeySelect(self, key):
+        self.mody.hide_all()
+        print event.keyval
         
-        from models import settings
-        print settings.get('default_key')
-        settings.set('default_key', str(key))
-        print settings.get('default_key')
-        self.btnKey.SetLabel(str(key))
-        
-        
-class GrabKeyFrame(wx.Dialog):
-    def __init__(self, parent, title):
-        wx.Dialog.__init__(self, parent, title=title, size=(400,200))
-        
-        
-        panel = wx.Panel(self, -1)
-        panel.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
-        panel.SetFocus()
-        
-        self.lblKey = wx.StaticText(panel, -1, "Please press a key")
-        
-        panel.Bind(wx.EVT_MOVE, self.OnKeyDown)
-        self.SetFocus()
-        self.Centre()
-        self.Show(True)
-        
-        
-    def OnKeyDown(self, e):
-        
-        # TODO: Figure out why alt and super are both returning 307
-        
-        if e.GetKeyCode() == 307:
+        if event.keyval == 65513:
+            key = "Alt_L"
+        elif event.keyval == 65515:
             key = "Super_L"
-        elif e.GetKeyCode() == 308:
+        elif event.keyval == 65507:
             key = "Control_L"
-        elif e.GetKeyCode() == 306:
+        elif event.keyval == 65505:
             key = "Shift_L"
         else:
-            self.lblKey.SetLabel("You can only bind <shift>, <ctrl>, <super>, <alt>")
-            return 
+            return
+         
+        self.set.set_label(key)
+        settings.set('default_key', key)
         
-        self.Parent.OnKeySelect(key)
-        self.Close()
+    def on_close(self,widget):
+        self.hide_all()
+    
+    def main(self):
+        gtk.main()
+          
  
 if __name__ == '__main__': 
-    app = wx.App(False)
-    frame = SettingsFrame(None, 'GMS Settings')
-    app.MainLoop()
+    frame = SettingsFrame()
+    frame.main()
