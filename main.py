@@ -13,36 +13,39 @@ class AppIndicator:
         self.ind.set_status (appindicator.STATUS_ACTIVE)
         # self.ind.set_attention_icon ("indicator-messages-new")
 
-
-
         # create a menu
         self.menu = gtk.Menu()
 
         # create items for the menu - labels, checkboxes, radio buttons and images are supported:
         
         title = gtk.MenuItem("Linux Mouse Gestures")
-        title.show()
+
         title.set_sensitive(False)
         self.menu.append(title)
         
+        self.menu.append(gtk.SeparatorMenuItem())
+        
         settings = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
-        settings.show()
+
         settings.connect("activate", self.settings)
         self.menu.append(settings)
 
         about = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
         about.connect("activate", self.about)
-        about.show()
+
         self.menu.append(about)
+
+        self.menu.append(gtk.SeparatorMenuItem())
 
         quit = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         quit.connect("activate", self.quit)
         quit.show()
         self.menu.append(quit)
                     
-        self.menu.show()
+
 
         self.ind.set_menu(self.menu)
+        self.menu.show_all()
         
         self.bg = Thread(target=self.start_log)
         self.bg.start()
