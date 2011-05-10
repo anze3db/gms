@@ -30,6 +30,11 @@ class AppIndicator:
         settings.connect("activate", self.settings)
         self.menu.append(settings)
 
+        about = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
+        about.connect("activate", self.about)
+        about.show()
+        self.menu.append(about)
+
         quit = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         quit.connect("activate", self.quit)
         quit.show()
@@ -50,6 +55,18 @@ class AppIndicator:
         from settingsFrame import SettingsFrame
         
         SettingsFrame()
+        
+    def about(self, widget):
+        
+        about = gtk.AboutDialog()
+        about.set_version('0.4')
+        about.set_name('Linux Mouse Gestures')
+        about.set_comments('Super simple and easy mouse gestures in Linux')
+        about.set_website('http://psywerx.net')
+        about.set_authors(['Anze', 'Matic', 'Miha'])
+        about.run()
+        about.hide_all()
+        
         
     def settings_start(self):
         from settingsFrame import SettingsFrame
