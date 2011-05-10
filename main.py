@@ -9,10 +9,10 @@ from threading import Thread
 
 class AppIndicator:
     def __init__(self):
-        self.ind = appindicator.Indicator ("example-simple-client", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+        self.ind = appindicator.Indicator("Ubuntu Mouse Gestures", "system-file-manager-panel", appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status (appindicator.STATUS_ACTIVE)
-        self.ind.set_attention_icon ("indicator-messages-new")
-        self.ind.set_icon("distributor-logo")
+        # self.ind.set_attention_icon ("indicator-messages-new")
+
 
 
         # create a menu
