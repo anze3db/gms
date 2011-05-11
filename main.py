@@ -6,6 +6,7 @@ import gtk
 import appindicator
 
 from threading import Thread
+from settingsFrame import SettingsFrame
 
 class AppIndicator:
     def __init__(self):
@@ -55,9 +56,10 @@ class AppIndicator:
         
     def settings(self, widget, data=None):
         
-        from settingsFrame import SettingsFrame
-        
-        SettingsFrame()
+        if hasattr(self, 'sf'):
+            self.sf.present()
+        else:
+            self.sf = SettingsFrame()
         
     def about(self, widget):
         

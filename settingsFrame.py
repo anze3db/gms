@@ -15,7 +15,7 @@ class SettingsFrame(gtk.Window):
         self.set_title(self.TITLE)
         self.set_position(gtk.WIN_POS_CENTER)
         self.set_border_width(10)
-        
+        self.set_resizable(False)
         # Set icons on buttons
         #settings = gtk.settings_get_default()
         #settings.props.gtk_button_images = True
