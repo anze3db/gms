@@ -10,7 +10,7 @@ class settingsGmsFrame(gtk.Window):
     TITLE = "GMS Settings"
     
     def __init__(self):
-        super(SettingsFrame, self).__init__()
+        super(settingsGmsFrame, self).__init__()
         
         self.set_title(self.TITLE)
         self.set_position(gtk.WIN_POS_CENTER)
@@ -97,5 +97,5 @@ class settingsGmsFrame(gtk.Window):
           
  
 if __name__ == '__main__': 
-    frame = SettingsFrame()
+    frame = settingsGmsFrame()
     frame.main()
