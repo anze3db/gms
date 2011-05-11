@@ -72,14 +72,7 @@ class AppIndicator:
         about.run()
         about.hide_all()
         
-        
-    def settings_start(self):
-        from settingsFrame import SettingsFrame
-        from wx import App
-        app = App(False)
-        frame = SettingsFrame(None, 'GMS Settings')
-        app.MainLoop()
-        
+       
         
     def start_log(self):
         from gms import setup_hookers
