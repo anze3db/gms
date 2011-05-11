@@ -5,7 +5,7 @@ pygtk.require('2.0')
 import gtk
 from models import settings
 
-class SettingsFrame(gtk.Window):
+class settingsGmsFrame(gtk.Window):
     
     TITLE = "GMS Settings"
     
