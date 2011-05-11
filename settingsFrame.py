@@ -22,13 +22,13 @@ class SettingsFrame(gtk.Window):
         
         hbox1 = gtk.HBox(False, 0)
         hbox2 = gtk.HBox(False, 10)
+        hbox3 = gtk.HBox(False, 10)
         vbox = gtk.VBox(False, 3)
         
         valign = gtk.Alignment(0, 1, 0, 0)
         vbox.pack_start(valign)
 
         label = gtk.Label("Set default key")
-        
         self.set = gtk.Button(settings.get("default_key"))
         self.set.connect("clicked", self.on_set)
         
@@ -40,6 +40,17 @@ class SettingsFrame(gtk.Window):
         halign.add(hbox2)
         vbox.pack_start(halign, False, False, 3)
         
+        
+        configGestures = gtk.Button("Config Gestures")
+        configGestures.connect('clicked', self.on_config_gestures)
+        hbox3.add(configGestures)
+        halign1 = gtk.Alignment(1, 0, 0, 0)
+        
+        halign1.add(hbox3)
+        
+        vbox.pack_start(halign1, False, False, 3)
+        
+        
         ok = gtk.Button(stock=gtk.STOCK_CLOSE)
         ok.connect("clicked", self.on_close)
         
@@ -49,10 +60,14 @@ class SettingsFrame(gtk.Window):
         halign.add(hbox1)
         vbox.pack_start(halign, False, False, 3)
 
+        
         self.add(vbox)
         
         self.connect("destroy", self.on_close)
         self.show_all()
+
+    def on_config_gestures(self):
+        
 
     def on_set(self, widget):
         
