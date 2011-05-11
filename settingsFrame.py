@@ -66,8 +66,9 @@ class SettingsFrame(gtk.Window):
         self.connect("destroy", self.on_close)
         self.show_all()
 
-    def on_config_gestures(self):
-        
+    def on_config_gestures(self, widget):
+        from configGms import settingsGmsFrame
+        settingsGmsFrame()
 
     def on_set(self, widget):
         
