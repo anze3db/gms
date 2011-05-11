@@ -67,7 +67,7 @@ class AppIndicator:
         about.set_version('0.4')
         about.set_name('Linux Mouse Gestures')
         about.set_comments('Super simple and easy mouse gestures in Linux')
-        about.set_website('http://psywerx.net')
+        about.set_website('https://github.com/Smotko/gms')
         about.set_authors(['Anze', 'Matic', 'Miha'])
         about.run()
         about.hide_all()
