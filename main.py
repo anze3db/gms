@@ -57,7 +57,9 @@ class AppIndicator:
     def settings(self, widget, data=None):
         
         if hasattr(self, 'sf'):
+            self.sf.show_all()
             self.sf.present()
+            
         else:
             self.sf = SettingsFrame()
         

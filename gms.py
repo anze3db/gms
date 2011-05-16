@@ -24,9 +24,7 @@ def openSettings():
 
 def OnKeyDown(event):
     global superPressed
-    print event.Key, settings.get('default_key')
-    if event.Key == 'x':
-        exit()
+    
     #elif event.Key == 's':
         #openSettings()
     if event.Key == settings.get('default_key'):
@@ -65,10 +63,61 @@ def record_mouse_pos():
     parse_gesture(gesture)
 
 def parse_gesture(coordinates):
-    print coordinates
-    #global frame
-    #frame.debug_output.SetValue(str(coordinates))
+    #print coordinates
+    sumX = 0
+    sumY = 0
+    SENSITIVITY = 200
+    gX = False
+    gY = False
+    
+    invalid = False
+    
+    for i in range(1, len(coordinates)-1):
+        (x,y) = coordinates[i] 
+        (prevX, prevY) = coordinates[i-1]
+        sumX += (x-prevX)
+        sumY += (y-prevY)
+        
+        if abs(sumX) < SENSITIVITY and gX:
+            invalid = True
+        if abs(sumY) < SENSITIVITY and gY:
+            invalid = False
+        
+        if abs(sumX) > SENSITIVITY:
+            gX = True
+        if abs(sumY) > SENSITIVITY:
+            gY = True
+        
+    if invalid:
+        print 'invalid'
+        return
+    
+    
+    gestureX = ''
+    gestureY = ''
+    
+    print abs(sumX), abs(sumY)
+    
+    if abs(sumX) > SENSITIVITY:
+        d = coordinates[0][0] - coordinates[-1][0]
+        if d >= 0:
+            gestureX = 'left'
+        else:
+            gestureX = 'right'
+    if abs(sumY) > SENSITIVITY:
+        d = coordinates[0][1] - coordinates[-1][1]
+        if d >= 0:
+            gestureY = 'up' 
+        else:
+            gestureY = 'down'
+    
+    print gestureX, gestureY
 
+    # Parse the coordinates:
+    # While odmik po X majhen
+    
+    # Get action for parsed gesture:
+    # Execute action:
 
 def mousepos():
     """mousepos() --> (x, y) get the mouse coordinates on the screen (linux, Xlib)."""
@@ -98,11 +147,10 @@ def setup_hookers():
 
 if __name__ == "__main__":
     
-    setup_hookers()
-    from indicator import AppIndicator
-    import gtk
-    indicator = AppIndicator()
-    gtk.main()
+    parse_gesture(
+                  
+                  [(840, 54), (840, 54), (840, 54), (840, 55), (840, 59), (838, 75), (838, 89), (840, 115), (850, 156), (850, 222), (850, 291), (847, 322), (845, 382), (838, 414), (835, 471), (835, 495), (826, 519), (817, 584), (815, 619), (815, 638), (811, 660), (811, 671), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (809, 678)]
+                  )
     
     
     
