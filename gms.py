@@ -62,6 +62,15 @@ def record_mouse_pos():
         gesture.append(mousepos())
     parse_gesture(gesture)
 
+
+def find_gesture(gesture):
+    key = settings.get(gesture)
+    if key:
+        import os
+        os.system('xsendkeys '+key)
+        
+
+
 def parse_gesture(coordinates):
     #print coordinates
     sumX = 0
@@ -113,11 +122,8 @@ def parse_gesture(coordinates):
     
     print gestureX, gestureY
 
-    # Parse the coordinates:
-    # While odmik po X majhen
+    find_gesture(gestureX + "-" + gestureY)
     
-    # Get action for parsed gesture:
-    # Execute action:
 
 def mousepos():
     """mousepos() --> (x, y) get the mouse coordinates on the screen (linux, Xlib)."""
