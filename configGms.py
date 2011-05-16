@@ -27,14 +27,14 @@ class settingsGmsFrame(gtk.Window):
         valign = gtk.Alignment(0, 1, 0, 0)
         vbox.pack_start(valign)
 
-        label = gtk.Label("Set default key")
+        label = gtk.Label("Down action:")
         
-        self.set = gtk.Button(settings.get("default_key"))
-        self.set.connect("clicked", self.on_set)
+        self.down = gtk.Entry()
+        self.down.set_text(settings.get('down'))
         
 
         hbox2.add(label)
-        hbox2.add(self.set)
+        hbox2.add(self.down)
         halign = gtk.Alignment(0, 1, 0, 0)
         
         halign.add(hbox2)
@@ -90,6 +90,9 @@ class settingsGmsFrame(gtk.Window):
         settings.set('default_key', key)
         
     def on_close(self,widget):
+        print self.down.get_text()
+        from models import settings
+        settings.set('down', self.down.get_text())
         self.hide_all()
     
     def main(self):

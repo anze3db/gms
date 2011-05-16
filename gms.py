@@ -43,15 +43,15 @@ def OnMouseDown(event):
     
     #frame.setClicked(event.WindowName)
     
-    if event.MessageName == 'mouse right down':
+    if event.MessageName == 'mouse middle down':
         rightMousePressed = True
         
-        if superPressed:
-            start_new_thread(record_mouse_pos, ())
+        #if superPressed:
+        start_new_thread(record_mouse_pos, ())
         
         
 def OnMoseUp(event):
-    if event.MessageName == 'mouse right up':
+    if event.MessageName == 'mouse middle up':
         global rightMousePressed
         rightMousePressed = False
         
@@ -64,10 +64,12 @@ def record_mouse_pos():
 
 
 def find_gesture(gesture):
+    print "GESTURE "+gesture
     key = settings.get(gesture)
     if key:
         import os
         os.system('xsendkeys '+key)
+        print 'xsendkeys '+key
         
 
 
@@ -122,7 +124,7 @@ def parse_gesture(coordinates):
     
     print gestureX, gestureY
 
-    find_gesture(gestureX + "-" + gestureY)
+    find_gesture(gestureX + gestureY)
     
 
 def mousepos():
