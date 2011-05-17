@@ -36,7 +36,7 @@ class settingsGmsFrame(gtk.Window):
             self.table.attach(label, 0,1,i,i+1)
             
             entry = gtk.Entry()
-            key = settings.get(c)
+            key = settings.get(c.replace('-', ''))
             entry.set_name(c)
             if key:
                 entry.set_text(key)
@@ -102,7 +102,7 @@ class settingsGmsFrame(gtk.Window):
             if child.get_name() in self.COMBINATIONS:
                 
                 settings.set(child.get_name().replace('-', ''), child.get_text())
-                print child.get_name().replace('-', ''), child.get_text()
+                print "downright anyoine?", child.get_name().replace('-', ''), child.get_text()
                 
         self.hide_all()
     

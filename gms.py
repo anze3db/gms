@@ -64,7 +64,7 @@ def record_mouse_pos():
 
 
 def find_gesture(gesture):
-    print "GESTURE "+gesture
+    
     key = settings.get(gesture)
     if key:
         import os
@@ -122,9 +122,7 @@ def parse_gesture(coordinates):
         else:
             gestureY = 'down'
     
-    print gestureX, gestureY
-
-    find_gesture(gestureX + gestureY)
+    find_gesture(gestureY + gestureX)
     
 
 def mousepos():
