@@ -29,7 +29,7 @@ class SettingsFrame(gtk.Window):
         vbox.pack_start(valign)
 
         label = gtk.Label("Set default key")
-        self.set = gtk.Button(settings.get("default_key"))
+        self.set = gtk.Button(str(settings.get("default_key")))
         self.set.connect("clicked", self.on_set)
         
 

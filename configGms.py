@@ -15,41 +15,46 @@ class settingsGmsFrame(gtk.Window):
         self.set_title(self.TITLE)
         self.set_position(gtk.WIN_POS_CENTER)
         self.set_border_width(10)
+        self.set_resizable(False)
         
         # Set icons on buttons
         #settings = gtk.settings_get_default()
         #settings.props.gtk_button_images = True
         
-        hbox1 = gtk.HBox(False, 0)
-        hbox2 = gtk.HBox(False, 10)
-        vbox = gtk.VBox(False, 3)
-        
-        valign = gtk.Alignment(0, 1, 0, 0)
-        vbox.pack_start(valign)
+        vbox = gtk.VBox(False, 10)
 
-        label = gtk.Label("Down action:")
-        
-        self.down = gtk.Entry()
-        self.down.set_text(settings.get('down'))
-        
 
-        hbox2.add(label)
-        hbox2.add(self.down)
-        halign = gtk.Alignment(0, 1, 0, 0)
-        
-        halign.add(hbox2)
-        vbox.pack_start(halign, False, False, 3)
-        
-        ok = gtk.Button(stock=gtk.STOCK_CLOSE)
-        ok.connect("clicked", self.on_close)
-        
-        hbox1.add(ok)
-        halign = gtk.Alignment(1, 0, 0, 0)
-        
-        halign.add(hbox1)
-        vbox.pack_start(halign, False, False, 3)
 
+        self.COMBINATIONS = ['left', 'right', 'up', 'down', 
+                        'up-left', 'up-right', 'down-left', 'down-right' 
+                       ]
+        self.table = gtk.Table(2, 2, False)
+        self.table.set_col_spacings(10)
+        for i,c in enumerate(self.COMBINATIONS):
+            label = gtk.Label(c.capitalize())
+            label.set_alignment(1,0.5)
+            self.table.attach(label, 0,1,i,i+1)
+            
+            entry = gtk.Entry()
+            key = settings.get(c)
+            entry.set_name(c)
+            if key:
+                entry.set_text(key)
+            self.table.attach(entry, 1,2, i, i+1)
+        
+        vbox.pack_start_defaults(self.table)
+        close = gtk.Button(stock=gtk.STOCK_CLOSE)
+        close.connect('clicked', self.on_close)
+        align = gtk.Alignment(xalign=1.0, yalign=0.5)
+        align.add(close)
+        vbox.pack_end_defaults(align)
+        
+        #self.add(table)
+        
+        #vbox.pack_end(table, True, True, 0)
         self.add(vbox)
+        #self.down = gtk.Entry()
+        #self.down.set_text(settings.get('down'))
         
         self.connect("destroy", self.on_close)
         self.show_all()
@@ -90,9 +95,15 @@ class settingsGmsFrame(gtk.Window):
         settings.set('default_key', key)
         
     def on_close(self,widget):
-        print self.down.get_text()
-        from models import settings
-        settings.set('down', self.down.get_text())
+        #print self.down.get_text()
+        
+        for child in self.table.get_children():
+            
+            if child.get_name() in self.COMBINATIONS:
+                
+                settings.set(child.get_name().replace('-', ''), child.get_text())
+                print child.get_name().replace('-', ''), child.get_text()
+                
         self.hide_all()
     
     def main(self):
