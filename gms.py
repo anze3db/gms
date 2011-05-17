@@ -68,8 +68,8 @@ def find_gesture(gesture):
     key = settings.get(gesture)
     if key:
         import os
-        os.system('xsendkeys '+key)
-        print 'xsendkeys '+key
+        os.system('xsendkeys +'+key)
+        
         
 
 
@@ -100,14 +100,14 @@ def parse_gesture(coordinates):
             gY = True
         
     if invalid:
-        print 'invalid'
+        #print 'invalid'
         return
     
     
     gestureX = ''
     gestureY = ''
     
-    print abs(sumX), abs(sumY)
+    #print abs(sumX), abs(sumY)
     
     if abs(sumX) > SENSITIVITY:
         d = coordinates[0][0] - coordinates[-1][0]

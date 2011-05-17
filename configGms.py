@@ -78,7 +78,7 @@ class settingsGmsFrame(gtk.Window):
     def on_grab(self, widget, event):
         
         self.mody.hide_all()
-        print event.keyval
+        #print event.keyval
         
         if event.keyval == 65513:
             key = "Alt_L"
@@ -102,7 +102,7 @@ class settingsGmsFrame(gtk.Window):
             if child.get_name() in self.COMBINATIONS:
                 
                 settings.set(child.get_name().replace('-', ''), child.get_text())
-                print "downright anyoine?", child.get_name().replace('-', ''), child.get_text()
+                #print "downright anyoine?", child.get_name().replace('-', ''), child.get_text()
                 
         self.hide_all()
     
