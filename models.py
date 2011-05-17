@@ -5,8 +5,8 @@ class settings():
     
     @classmethod
     def set(cls, key, value):   
-            
-        if cls.get(key):
+        k = cls.get(key)    
+        if k or k == '':
             db.q("UPDATE settings SET value = ? WHERE key = ?", (value, key))
         else:
             db.q("INSERT INTO settings VALUES(?,?)", (key, value))
@@ -15,12 +15,15 @@ class settings():
     def get(cls, key):
         
         cmd = "SELECT * FROM settings WHERE key = ?"
-        r = db.q(cmd, (key,)).fetchone()
-        from types import NoneType
-        if type(r) is NoneType:
+        r = db.q(cmd, (key,)).fetchall()
+        if len(r) == 0:
             return False
+        
+        from types import NoneType
+        if type(r[0]) is NoneType:
+            return ''
         else:
-            return r['value']
+            return r[0]['value']
 
     @classmethod    
     def delete(cls, key):
