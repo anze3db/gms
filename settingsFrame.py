@@ -33,18 +33,23 @@ class SettingsFrame(gtk.Window):
         #valign = gtk.Alignment(0, 1, 0, 0)
         #vbox.pack_start(valign)
         
-        self.table = gtk.Table(3, 3, False)
-        self.table.set_col_spacings(10)
         
+        
+        self.table = gtk.Table(4, 4, False)
+        self.table.set_col_spacings(10)
+              
         label = gtk.Label("Set default key:")
         label.set_alignment(1,0.5)
         self.set = gtk.Button(str(settings.get("default_key")))
         self.set.connect("clicked", self.on_set)
+        clear = gtk.Button("Clear")
+        clear.connect('clicked', self.on_clear)
+        self.table.attach(clear, 2,3, 1,2)
         
-        self.table.attach(label, 0, 1, 0, 1)
-        self.table.attach(self.set, 1, 2, 0, 1)
+        self.table.attach(label, 0, 1, 1, 2)
+        self.table.attach(self.set, 1, 2, 1, 2)
         
-        self.table.attach(gtk.Label("Set mouse button:"), 0,1,1,2)
+        self.table.attach(gtk.Label("Set mouse button:"), 0,1,2,3)
         selectMouse = gtk.combo_box_new_text()
         selectMouse.append_text("Left")
         selectMouse.append_text("Middle")
@@ -55,14 +60,14 @@ class SettingsFrame(gtk.Window):
         if mouse:
             selectMouse.set_active(self.MOUSE.index(mouse))
         
-        self.table.attach(selectMouse,1,2,1,2)
+        self.table.attach(selectMouse,1,2,2,3)
         
         configGestures = gtk.Button("Config Gestures")
         configGestures.connect('clicked', self.on_config_gestures)
         cf = gtk.Label("Config gestures:")
         cf.set_alignment(1,0.5)
-        self.table.attach(cf, 0,1,2,3)
-        self.table.attach(configGestures, 1,2,2,3)
+        self.table.attach(cf, 0,1,4,5)
+        self.table.attach(configGestures, 1,2,4,5)
         
         
         close = gtk.Button(stock=gtk.STOCK_CLOSE)
@@ -77,6 +82,7 @@ class SettingsFrame(gtk.Window):
         halign = gtk.Alignment(0, 1, 0, 0)
                 
         self.add(vbox)
+        
         
         self.connect("destroy", self.on_close)
         self.show_all()
@@ -125,6 +131,11 @@ class SettingsFrame(gtk.Window):
         
     def on_changed_cb(self, widget):
         settings.set('mouse', self.MOUSE[widget.get_active()])
+        
+    def on_clear(self, widget):
+        settings.set('default_key', '')
+        self.set.set_label('False')
+        #settings.set('mouse', self.MOUSE[widget.get_active()])
           
     
     def main(self):
