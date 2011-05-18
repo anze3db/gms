@@ -7,7 +7,7 @@ from models import settings
 
 class settingsGmsFrame(gtk.Window):
     
-    TITLE = "GMS Settings"
+    TITLE = "Bind keys"
     
     def __init__(self):
         super(settingsGmsFrame, self).__init__()

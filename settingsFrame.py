@@ -5,9 +5,14 @@ pygtk.require('2.0')
 import gtk
 from models import settings
 
+
+
+
+
 class SettingsFrame(gtk.Window):
     
     TITLE = "GMS Settings"
+    MOUSE = ['left', 'middle', 'right']
     
     def __init__(self):
         super(SettingsFrame, self).__init__()
@@ -20,47 +25,57 @@ class SettingsFrame(gtk.Window):
         #settings = gtk.settings_get_default()
         #settings.props.gtk_button_images = True
         
-        hbox1 = gtk.HBox(False, 0)
-        hbox2 = gtk.HBox(False, 10)
-        hbox3 = gtk.HBox(False, 10)
-        vbox = gtk.VBox(False, 3)
+        #hbox1 = gtk.HBox(False, 0)
+        #hbox2 = gtk.HBox(False, 10)
+        #hbox3 = gtk.HBox(False, 10)
+        vbox = gtk.VBox(False, 10)
         
-        valign = gtk.Alignment(0, 1, 0, 0)
-        vbox.pack_start(valign)
-
-        label = gtk.Label("Set default key")
+        #valign = gtk.Alignment(0, 1, 0, 0)
+        #vbox.pack_start(valign)
+        
+        self.table = gtk.Table(3, 3, False)
+        self.table.set_col_spacings(10)
+        
+        label = gtk.Label("Set default key:")
+        label.set_alignment(1,0.5)
         self.set = gtk.Button(str(settings.get("default_key")))
         self.set.connect("clicked", self.on_set)
         
-
-        hbox2.add(label)
-        hbox2.add(self.set)
-        halign = gtk.Alignment(0, 1, 0, 0)
+        self.table.attach(label, 0, 1, 0, 1)
+        self.table.attach(self.set, 1, 2, 0, 1)
         
-        halign.add(hbox2)
-        vbox.pack_start(halign, False, False, 3)
+        self.table.attach(gtk.Label("Set mouse button:"), 0,1,1,2)
+        selectMouse = gtk.combo_box_new_text()
+        selectMouse.append_text("Left")
+        selectMouse.append_text("Middle")
+        selectMouse.append_text("Right")
+        selectMouse.connect('changed', self.on_changed_cb)
         
+        mouse = settings.get('mouse')
+        if mouse:
+            selectMouse.set_active(self.MOUSE.index(mouse))
+        
+        self.table.attach(selectMouse,1,2,1,2)
         
         configGestures = gtk.Button("Config Gestures")
         configGestures.connect('clicked', self.on_config_gestures)
-        hbox3.add(configGestures)
-        halign1 = gtk.Alignment(1, 0, 0, 0)
-        
-        halign1.add(hbox3)
-        
-        vbox.pack_start(halign1, False, False, 3)
+        cf = gtk.Label("Config gestures:")
+        cf.set_alignment(1,0.5)
+        self.table.attach(cf, 0,1,2,3)
+        self.table.attach(configGestures, 1,2,2,3)
         
         
-        ok = gtk.Button(stock=gtk.STOCK_CLOSE)
-        ok.connect("clicked", self.on_close)
+        close = gtk.Button(stock=gtk.STOCK_CLOSE)
+        close.connect('clicked', self.on_close)
+        align = gtk.Alignment(xalign=1.0, yalign=0.5)
+        align.add(close)
+        vbox.pack_end_defaults(align)
         
-        hbox1.add(ok)
-        halign = gtk.Alignment(1, 0, 0, 0)
+        vbox.pack_start_defaults(self.table)
+        vbox.pack_end_defaults(align)
         
-        halign.add(hbox1)
-        vbox.pack_start(halign, False, False, 3)
-
-        
+        halign = gtk.Alignment(0, 1, 0, 0)
+                
         self.add(vbox)
         
         self.connect("destroy", self.on_close)
@@ -107,10 +122,14 @@ class SettingsFrame(gtk.Window):
         
     def on_close(self,widget):
         self.hide_all()
+        
+    def on_changed_cb(self, widget):
+        settings.set('mouse', self.MOUSE[widget.get_active()])
+          
     
     def main(self):
         gtk.main()
-          
+    
  
 if __name__ == '__main__': 
     frame = SettingsFrame()

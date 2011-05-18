@@ -73,12 +73,9 @@ class AppIndicator:
         about.set_authors(['Anze', 'Matic', 'Miha'])
         about.run()
         about.hide_all()
-        
-       
-        
+         
     def start_log(self):
         from gms import setup_hookers
-        
         setup_hookers()
         
     def main(self):

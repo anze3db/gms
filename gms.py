@@ -42,8 +42,11 @@ def OnMouseDown(event):
     global frame
     
     #frame.setClicked(event.WindowName)
-    
-    if event.MessageName == 'mouse middle down':
+    mouse = settings.get('mouse')
+    if not mouse:
+        mouse = 'middle'
+    print mouse
+    if event.MessageName == 'mouse ' + mouse + ' down':
         rightMousePressed = True
         
         #if superPressed:
@@ -51,7 +54,10 @@ def OnMouseDown(event):
         
         
 def OnMoseUp(event):
-    if event.MessageName == 'mouse middle up':
+    mouse = settings.get('mouse')
+    if not mouse:
+        mouse = 'middle'
+    if event.MessageName == 'mouse ' + mouse + ' up':
         global rightMousePressed
         rightMousePressed = False
         
