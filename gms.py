@@ -21,12 +21,9 @@ def openSettings():
     frame = SettingsFrame(None, 'GMS Settings')
     app.MainLoop()
 
-
 def OnKeyDown(event):
     global superPressed
-    
-    #elif event.Key == 's':
-        #openSettings()
+        
     if event.Key == settings.get('default_key'):
         superPressed = True
         
@@ -49,8 +46,11 @@ def OnMouseDown(event):
     if event.MessageName == 'mouse ' + mouse + ' down':
         rightMousePressed = True
         
-        #if superPressed:
-        start_new_thread(record_mouse_pos, ())
+        if settings.get('default_key'):
+            if superPressed:
+                start_new_thread(record_mouse_pos, ())
+        else:
+            start_new_thread(record_mouse_pos, ())
         
         
 def OnMoseUp(event):
