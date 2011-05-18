@@ -12,7 +12,7 @@ from models import settings
 class SettingsFrame(gtk.Window):
     
     TITLE = "GMS Settings"
-    MOUSE = ['left', 'middle', 'right']
+    MOUSE = ['left', 'middle', 'right', '8', '9']
     
     def __init__(self):
         super(SettingsFrame, self).__init__()
@@ -51,9 +51,8 @@ class SettingsFrame(gtk.Window):
         
         self.table.attach(gtk.Label("Set mouse button:"), 0,1,2,3)
         selectMouse = gtk.combo_box_new_text()
-        selectMouse.append_text("Left")
-        selectMouse.append_text("Middle")
-        selectMouse.append_text("Right")
+        for c in self.MOUSE:
+            selectMouse.append_text(c.capitalize())
         selectMouse.connect('changed', self.on_changed_cb)
         
         mouse = settings.get('mouse')
@@ -133,7 +132,7 @@ class SettingsFrame(gtk.Window):
         settings.set('mouse', self.MOUSE[widget.get_active()])
         
     def on_clear(self, widget):
-        settings.set('default_key', '')
+        settings.delete('default_key')
         self.set.set_label('False')
         #settings.set('mouse', self.MOUSE[widget.get_active()])
           

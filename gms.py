@@ -57,6 +57,7 @@ def OnMoseUp(event):
     mouse = settings.get('mouse')
     if not mouse:
         mouse = 'middle'
+    print event.MessageName
     if event.MessageName == 'mouse ' + mouse + ' up':
         global rightMousePressed
         rightMousePressed = False
@@ -159,8 +160,7 @@ def setup_hookers():
 
 if __name__ == "__main__":
     
-    parse_gesture(
-                  
+    parse_gesture(                  
                   [(840, 54), (840, 54), (840, 54), (840, 55), (840, 59), (838, 75), (838, 89), (840, 115), (850, 156), (850, 222), (850, 291), (847, 322), (845, 382), (838, 414), (835, 471), (835, 495), (826, 519), (817, 584), (815, 619), (815, 638), (811, 660), (811, 671), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (809, 678)]
                   )
     
