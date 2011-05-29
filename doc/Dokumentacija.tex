@@ -128,19 +128,37 @@ Ko program zaženemo, se v zgornji vrstici v kotičku za obveščanju pojavi iko
 \pic{0.9}{./gmsAppindicator.png}\\
 S klikom na ikono se odpre meni, s katerim lahko pridemo do nastavitev, podatkov o programu, ali pa zapremo program.
 \br
-Program nato uporabljamo prek miškinih gest.\\
-Podprtih je naslednjih 8 gest:\\
-\pic{0.2}{./gmsGestures.png}
+Program nato uporabljamo prek miškinih gest. Podprte so naslednje geste:
+\br
+\begin{minipage}{6cm}
 \begin{itemize}
-\item Gor--Levo
-\item Gor
-\item Gor--Desno
-\item Desno
-\item Dol-Desno
-\item Dol
-\item Dol--Levo
-\item Levo
+\item \inline{Gor--Levo}\\
+\pic{0.2}{./upleft.png}
+\item \inline{Gor}\\
+\pic{0.2}{./up.png}
+\item \inline{Gor--Desno}\\
+\pic{0.2}{./upright.png}
 \end{itemize}
+\end{minipage}
+\begin{minipage}{6cm}
+\begin{itemize}
+\item \inline{Desno}\\
+\pic{0.2}{./right.png}
+\br
+\item \inline{Levo}\\
+\pic{0.2}{./left.png}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{6cm}
+\begin{itemize}
+\item \inline{Dol-Desno}\\
+\pic{0.2}{./downright.png}
+\item \inline{Dol}\\
+\pic{0.2}{./down.png}
+\item \inline{Dol--Levo}\\
+\pic{0.2}{./downleft.png}
+\end{itemize}
+\end{minipage}\\
 Akcije gest so nastavljive (glej \ref{Nastavitve}), obsegajo pa povsem poljubne pritiske tipk tipkovnice. Tako lahko upravljamo z vsakim programom, ki podpira bližnjice na tipkovnici, nekatere bližnjice (npr. za zapiranje programov), pa so podprte že s strani operacijskega sistema.
 \newpage
 \subsection{Nastavitve}\label{Nastavitve}
@@ -157,12 +175,15 @@ S klikom na \inline{Config gestures} pa se odpre okno, kjer nastavimo katera akc
 \pic{0.5}{./gmsKeys.png}\\
 
 \chapter{Tehnična zasnova}
-\section{Uporabljene tehnologije}
-Program gms je napisan v programskem jeziku \inline{Python}. Za uporabniški vmesnik nastavitev je uporabljeno ogrodje \inline{GTK}, za dodajanje ikone v kotiček za obveščanje je uporabiljen \inline{IndicatorApplet}, za zajemanje premikov miške in tipk tipkovnice in tudi za izvajanje akcij, pa smo uporabili knjižnico \inline{Xlib}. Za prepoznavanje miškinih gest smo uporabili lasten algoritem.\\[1.6cm]
+Program gms je napisan v programskem jeziku \inline{Python}. Za uporabniški vmesnik nastavitev je uporabljeno ogrodje \inline{GTK}, za dodajanje ikone v kotiček za obveščanje je uporabiljen \inline{IndicatorApplet}, za zajemanje premikov miške in tipk tipkovnice in tudi za izvajanje akcij, pa smo uporabili knjižnico \inline{Xlib}. Za prepoznavanje miškinih gest smo uporabili lasten algoritem.
+\br
+Za \inline{Python} smo se odločili, ker kljub svoji visoko-nivojski naravi, prek množice knjižnic, omogoča dostop do nizko-nivojskih dogajanj operacijskega sistema. Knjižnica, ki smo jo za implementacijo najbolj potrebovali je \inline{Xlib} -- z njo je implementirano tako zajemanje miške in tipkovnice(zajemanje gibanja in pritiska tipk), kot tudi izvajanje akcij (pošiljanje tipk tipkovnice). 
+\\[1.5cm]
 \pic{0.5}{./logoPython.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \pic{0.2}{./logoGTK.jpg}\\[1cm]
 \. \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \pic{0.25}{./logoX.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \pic{0.15}{./logoAppindicator.png}
-
-
+\chapter{Nadaljno delo}
+Program se kljub temu, da je že pripravljen za uporabo, širi v praktično vse smeri.\\
+Na eni strani lahko napišemo boljši algoritem za prepoznavanje gest, ki bo prepoznaval tudi višje-nivojske geste (npr. gesto \inline{Gor--Dol--Gor--Levo--Desno}). Možno bi bilo zajemati podatke na nižjem nivoju, kar bi omogočalo da preprečimo programu, da bi prejel miškin klik in izvedel privzeto akcijo. Lahko bi poboljšali tudi izvajanje gest, ki so trenutno omejene na pošiljanje tipk tipkovnice, ne pošiljajo pa signalov operacijskemu sistemu naj, npr. minimizira neko okno, ali zažene nek program ali skripto.
 \end{document}
