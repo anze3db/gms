@@ -1,0 +1,98 @@
+\documentclass[10pt,a4paper,oneside]{article}
+
+\usepackage[slovene]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{nag}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+    pdftitle={gms - Generic Mouse Gestures}
+}
+\title{gms - Generic Mouse Gestures}
+\usepackage{listingsutf8}
+\lstset{
+	tabsize=4,
+	basicstyle={\ttfamily \scriptsize},
+	identifierstyle={\ttfamily},
+	inputencoding=cp1250,
+	%barvanje kode
+	commentstyle={\sffamily \color[rgb]{0,0.5,0}},
+	stringstyle=\color[rgb]{0.5,0,1},
+	keywordstyle=\color[rgb]{0,0,1},
+	classoffset=0,
+	%barvanje kode
+	language=Java,
+	deletekeywords={true,false},
+	deletekeywords={byte,short,int,long,float,double,char,boolean,void},
+	classoffset=1,
+	morekeywords={byte,short,int,long,float,double,char,boolean,void},
+	keywordstyle=\color[rgb]{0.5,0,1},
+	%iz source datotek potegnemo tisto med //@begin@ ...koda... //@end@
+	rangeprefix=//@,
+	rangesuffix=@,
+	linerange=begin-end,
+	includerangemarker=false,
+	%lomljenje predolgih vrstic
+	breaklines=true,
+	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	%okvir
+	frame=single,
+	frameround={t}{t}{t}{t},
+	xleftmargin=23pt,
+	xrightmargin=4pt,
+	framexleftmargin=19pt,
+	framerule=0pt,
+	%številčenje
+	numbers=left,
+	firstnumber=1
+}
+
+\usepackage[svgnames]{xcolor}
+\usepackage{fancybox}
+\usepackage{varwidth}
+\newcommand\inline[1]{%
+\begin{Sbox}{#1}\end{Sbox}%
+\colorbox{lightgray}{\TheSbox}%
+}
+\newcommand\inliney[1]{%
+\begin{Sbox}\begin{varwidth}{0.91\textwidth}{#1}\end{varwidth}\end{Sbox}%
+\colorbox{lightgray}{\TheSbox}%
+}
+
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\ \\[3cm]
+{\resizebox{15cm}{!}{\Huge gms}}\\[-40pt]
+{\huge\bf \ \ \ \ \ \ \ \ \ \ \ Generic Mouse Gestures}\\[5cm]
+{\huge\bf Navodila za uporabo}\ \\[0.35cm]
+{\Large \today}\ \\[3cm]
+{\huge {\bf Avtorji:}}\\[0.35cm]
+{\Large Anže Pečar, Miha Zidar, Matic Potočnik}
+\vfill
+\parbox{7.5cm}{
+\begin{center}
+%\includegraphics[width=0.15\textwidth]{./by-nc-sa}
+\end{center}
+}
+\end{center}
+\end{titlepage}
+\tableofcontents
+\pagebreak
+
+\section{O programu}
+\section{Namestitev}
+\inliney{sudo apt-get install python-xlib lineakd git\\
+git clone git://github.com/Smotko/gms.git}
+
+\section{Uporaba}
+\inliney{python main.py}
+\end{document}
