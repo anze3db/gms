@@ -4,6 +4,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 from models import settings
+from pprint import pprint
 
 class settingsGmsFrame(gtk.Window):
     
@@ -22,14 +23,17 @@ class settingsGmsFrame(gtk.Window):
         #settings.props.gtk_button_images = True
         
         vbox = gtk.VBox(False, 10)
-
+        hbox = gtk.HBox(False, 10)
 
 
         self.COMBINATIONS = ['left', 'right', 'up', 'down', 
                         'up-left', 'up-right', 'down-left', 'down-right' 
                        ]
+                       
+        frame = gtk.Frame("Globalne nastavitve")  
         self.table = gtk.Table(2, 2, False)
         self.table.set_col_spacings(10)
+        self.table.set_border_width(10)  
         for i,c in enumerate(self.COMBINATIONS):
             label = gtk.Label(c.capitalize())
             label.set_alignment(1,0.5)
@@ -41,8 +45,37 @@ class settingsGmsFrame(gtk.Window):
             if key:
                 entry.set_text(key)
             self.table.attach(entry, 1,2, i, i+1)
+            
+        frame.add(self.table)        
         
-        vbox.pack_start_defaults(self.table)
+        frame_local = gtk.Frame("Lokalno")
+        
+        self.table2 = gtk.Table(2, 2, False)
+        self.table2.set_col_spacings(10)
+        self.table2.set_border_width(10) 
+        label = gtk.Label("Izberi program:")
+        label.set_alignment(1,0.5)
+        select_program = gtk.combo_box_new_text()
+        select_program.append_text("Chrome")
+        add_button = gtk.Button("Add")
+        self.table2.attach(add_button, 2,3, 0,1)
+        self.table2.attach(label, 0,1,0,1)
+        self.table2.attach(select_program, 1,2,0,1)
+        for i,c in enumerate(self.COMBINATIONS):
+            label = gtk.Label(c.capitalize())
+            label.set_alignment(1,0.5)
+            self.table2.attach(label, 0,1,i+1,i+2)
+            
+            entry = gtk.Entry()
+            key = settings.get(c.replace('-', ''))
+            entry.set_name(c)
+            if key:
+                entry.set_text(key)
+            self.table2.attach(entry, 1,2, i+1, i+2)
+        frame_local.add(self.table2)
+        hbox.pack_start_defaults(frame)
+        hbox.pack_start_defaults(frame_local)
+        vbox.pack_start_defaults(hbox)
         close = gtk.Button(stock=gtk.STOCK_CLOSE)
         close.connect('clicked', self.on_close)
         align = gtk.Alignment(xalign=1.0, yalign=0.5)
