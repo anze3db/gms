@@ -70,7 +70,7 @@ class AppIndicator:
         about.set_name('Linux Mouse Gestures')
         about.set_comments('Super simple and easy mouse gestures in Linux')
         about.set_website('https://github.com/Smotko/gms')
-        about.set_authors(['Anze', 'Matic', 'Miha'])
+        about.set_authors(['Anze Pecar', 'Matic Potocnik', 'Miha Zidar'])
         about.run()
         about.hide_all()
          
