@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,oneside]{article}
+\documentclass[10pt,a4paper,oneside]{book}
 
 \usepackage[slovene]{babel}
 \usepackage[utf8x]{inputenc}
@@ -8,14 +8,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{enumerate}
 \usepackage{verbatim}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue
-    pdftitle={gms - Generic Mouse Gestures}
-}
-\title{gms - Generic Mouse Gestures}
+
 \usepackage{listingsutf8}
 \lstset{
 	tabsize=4,
@@ -66,33 +59,103 @@
 \colorbox{lightgray}{\TheSbox}%
 }
 
+\newcommand\pic[2]{%
+\parbox{1cm}{%
+\begin{center}%
+\includegraphics[width=#1\textwidth]{#2}%
+\end{center}%
+}%
+}
+
+\newcommand\br{%? any better ideas? check \par
+ \ \\ \ \\%
+}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={gms - Generic Mouse Gestures}
+}
+\title{gms - Generic Mouse Gestures}
 
 \begin{document}
 \begin{titlepage}
 \begin{center}
 \ \\[3cm]
 {\resizebox{15cm}{!}{\Huge gms}}\\[-40pt]
-{\huge\bf \ \ \ \ \ \ \ \ \ \ \ Generic Mouse Gestures}\\[5cm]
-{\huge\bf Navodila za uporabo}\ \\[0.35cm]
-{\Large \today}\ \\[3cm]
+{\huge\bf \ \ \ \ \ \ \ \ \ \ \ Generic Mouse Gestures}\\[4.5cm]
+{\Huge\bf Dokumentacija}\ \\[0.35cm]
+{\huge \today}\ \\[3cm]
 {\huge {\bf Avtorji:}}\\[0.35cm]
 {\Large Anže Pečar, Miha Zidar, Matic Potočnik}
 \vfill
-\parbox{7.5cm}{
-\begin{center}
-%\includegraphics[width=0.15\textwidth]{./by-nc-sa}
-\end{center}
-}
 \end{center}
 \end{titlepage}
 \tableofcontents
 \pagebreak
 
+\chapter{Uvod}
 \section{O programu}
-\section{Namestitev}
-\inliney{sudo apt-get install python-xlib lineakd git\\
-git clone git://github.com/Smotko/gms.git}
+\inline{gms} je program za upravljanje računalnika s pomočjo miškinih gest. Ustvarjen je bil v sklopu seminarske naloge za predmet \inline{Operacijski Sistemi 2} na univerzitetnem programu Fakultete za računalništvo in informatiko v Ljubljani. Repozitorij z izvorno kodo je na voljo na: \inline{\url{https://github.com/Smotko/gms}}
 
+\chapter{Navodila za uporabo}
+\section{Namestitev}
+Prikazana je namestitev na sistem \inline{Ubuntu 11.04 Natty Narwhal}.
+\subsection{Odvisnosti}
+Program ima nekaj odvisnosti, ki niso pokrite v privzeti namestitvi Ubuntu 11.04.\\
+To popravimo z namestitvijo paketov \inline{python-xlib} \inline{lineakd}, ter \inline{git}:\\
+\inliney{sudo apt-get install python-xlib lineakd git}
+\subsection{Namestitev}
+Kot je navada v Ubuntuju, program naložimo v mapo \inline{/usr/local/bin}:\\
+\inliney{cd /usr/local/bin\\
+sudo git clone git://github.com/Smotko/gms.git}
+\br\br
+Če program želimo zaganjati iz kjerkoli, moramo njegovo mapo dodati v iskalno pot.\\To naredimo tako, da dodamo naslednji vrstici v datoteko \inline{$\sim$/.bash\_rc}:\\
+\inliney{PATH=\$PATH:/usr/local/bin\\
+export PATH}
+
+\subsection{Posodabljanje}
+Če želimo program kdaj posodobiti, v terminalu zaženemo:\\
+\inliney{cd /usr/local/bin/gms\\
+sudo git pull}
 \section{Uporaba}
-\inliney{python main.py}
+\subsection{Zagon}
+Za zagon preprosto zaženemo \inline{gms} v terminalu, po želji pa si lahko ustvarimo tudi bližnjico v kakšnem izmed menijev, ali pa program dodamo med programe, ki se zaženejo ob zagonu operacijskega sistema.
+
+\subsection{Uporaba}
+Ko program zaženemo, se v zgornji vrstici v kotičku za obveščanju pojavi ikona.\\
+\pic{0.9}{./gmsAppindicator.png}\\
+S klikom na ikono se odpre meni, s katerim lahko pridemo do nastavitev, podatkov o programu, ali pa zapremo program.
+\br
+Program nato uporabljamo prek miškinih gest.\\
+Podprtih je naslednjih 8 gest:\\
+\pic{0.2}{./gmsGestures.png}
+\begin{itemize}
+\item Gor--Levo
+\item Gor
+\item Gor--Desno
+\item Desno
+\item Dol-Desno
+\item Dol
+\item Dol--Levo
+\item Levo
+\end{itemize}
+Akcije gest so nastavljive (glej \ref{Nastavitve}), obsegajo pa povsem poljubne pritiske tipk tipkovnice. Tako lahko upravljamo z vsakim programom, ki podpira bližnjice na tipkovnici, nekatere bližnjice (npr. za zapiranje programov), pa so podprte že s strani operacijskega sistema.
+\newpage
+\subsection{Nastavitve}\label{Nastavitve}
+Do nastavitev pridemo s klikom na ikono v zgornji vrstici in izbiro \inline{Preferences}\\
+\pic{0.9}{./gmsAppindicator.png}\\
+Pojavi se okno:\\
+\pic{0.5}{./gmsSettings.png}
+\br
+S klikom na gumb ob \inline{Set default key} nastavimo, katero tipko je potrebno držati med izvajanjem geste, pri čemer privzeta nastavitev \inline{False} pomeni, nobene.
+\br
+S \inline{Set mouse button} nastavimo, katero miškino tipko je potrebno držati med izvajanjem geste.
+\br
+S klikom na \inline{Config gestures} pa se odpre okno, kjer nastavimo katera akcija se bo izvedla ob kateri gesti.\br
+\pic{0.5}{./gmsKeys.png}\\
+
+
 \end{document}
