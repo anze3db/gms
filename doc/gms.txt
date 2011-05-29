@@ -1,0 +1,6 @@
+Namestitev:
+sudo apt-get install python-xlib lineakd git
+git clone git://github.com/Smotko/gms.git
+
+Zagon:
+python main.py
