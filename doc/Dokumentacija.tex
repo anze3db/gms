@@ -99,7 +99,6 @@
 \chapter{Uvod}
 \section{O programu}
 \inline{gms} je program za upravljanje računalnika s pomočjo miškinih gest. Ustvarjen je bil v sklopu seminarske naloge za predmet \inline{Operacijski Sistemi 2} na univerzitetnem programu Fakultete za računalništvo in informatiko v Ljubljani. Repozitorij z izvorno kodo je na voljo na: \inline{\url{https://github.com/Smotko/gms}}
-
 \chapter{Navodila za uporabo}
 \section{Namestitev}
 Prikazana je namestitev na sistem \inline{Ubuntu 11.04 Natty Narwhal}.
@@ -156,6 +155,14 @@ S \inline{Set mouse button} nastavimo, katero miškino tipko je potrebno držati
 \br
 S klikom na \inline{Config gestures} pa se odpre okno, kjer nastavimo katera akcija se bo izvedla ob kateri gesti.\br
 \pic{0.5}{./gmsKeys.png}\\
+
+\chapter{Tehnična zasnova}
+\section{Uporabljene tehnologije}
+Program gms je napisan v programskem jeziku \inline{Python}. Za uporabniški vmesnik nastavitev je uporabljeno ogrodje \inline{GTK}, za dodajanje ikone v kotiček za obveščanje je uporabiljen \inline{IndicatorApplet}, za zajemanje premikov miške in tipk tipkovnice in tudi za izvajanje akcij, pa smo uporabili knjižnico \inline{Xlib}. Za prepoznavanje miškinih gest smo uporabili lasten algoritem.\\[1.6cm]
+\pic{0.5}{./logoPython.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\pic{0.2}{./logoGTK.jpg}\\[1cm]
+\. \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \pic{0.25}{./logoX.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\pic{0.15}{./logoAppindicator.png}
 
 
 \end{document}
