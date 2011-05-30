@@ -159,21 +159,21 @@ Program nato uporabljamo prek miškinih gest. Podprte so naslednje geste:
 \pic{0.2}{./downleft.png}
 \end{itemize}
 \end{minipage}\\
-Akcije gest so nastavljive (glej \ref{Nastavitve}), obsegajo pa povsem poljubne pritiske tipk tipkovnice. Tako lahko upravljamo z vsakim programom, ki podpira bližnjice na tipkovnici, nekatere bližnjice (npr. za zapiranje programov), pa so podprte že s strani operacijskega sistema.
+Akcije, ki se izvedejo po prepoznavi gest so nastavljive (glej \ref{Nastavitve}), obsegajo pa povsem poljubne pritiske tipk tipkovnice. Tako lahko upravljamo z vsakim programom, ki podpira kake bližnjice na tipkovnici, nekatere bližnjice (npr. za zapiranje programov), pa so podprte že s strani operacijskega sistema.
 \newpage
 \subsection{Nastavitve}\label{Nastavitve}
 Do nastavitev pridemo s klikom na ikono v zgornji vrstici in izbiro \inline{Preferences}\\
 \pic{0.9}{./gmsAppindicator.png}\\
-Pojavi se okno:\\
+V oknu z nastavitvami imamo naslednje možnosti:\\
 \pic{0.5}{./gmsSettings.png}
 \br
 S klikom na gumb ob \inline{Set default key} nastavimo, katero tipko je potrebno držati med izvajanjem geste, pri čemer privzeta nastavitev \inline{False} pomeni, nobene.
 \br
 S \inline{Set mouse button} nastavimo, katero miškino tipko je potrebno držati med izvajanjem geste.
 \br
-S klikom na \inline{Config gestures} pa se odpre okno, kjer nastavimo katera akcija se bo izvedla ob kateri gesti.\br
-\pic{0.5}{./gmsKeys.png}\\
-
+S klikom na \inline{Config gestures} pa se odpre okno, z nastavitvami akcij.\br
+\pic{0.9}{./gmsKeys2.png}\\
+V tem oknu nastavimo, katera akcija se bo izvedla ob kateri gesti, lahko pa dodamo tudi posebne nastavitve za posamezne programe, ki imajo morda svoje bližnjice, katere jih želimo uporabiti.
 \chapter{Tehnična zasnova}
 Program gms je napisan v programskem jeziku \inline{Python}. Za uporabniški vmesnik nastavitev je uporabljeno ogrodje \inline{GTK}, za dodajanje ikone v kotiček za obveščanje je uporabiljen \inline{IndicatorApplet}, za zajemanje premikov miške in tipk tipkovnice in tudi za izvajanje akcij, pa smo uporabili knjižnico \inline{Xlib}. Za prepoznavanje miškinih gest smo uporabili lasten algoritem.
 \br
