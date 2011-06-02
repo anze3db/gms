@@ -3,7 +3,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
-from models import settings
+from models import settings, gestures
 from pprint import pprint
 
 class settingsGmsFrame(gtk.Window):
@@ -55,23 +55,39 @@ class settingsGmsFrame(gtk.Window):
         self.table2.set_border_width(10) 
         label = gtk.Label("Izberi program:")
         label.set_alignment(1,0.5)
-        select_program = gtk.combo_box_new_text()
-        select_program.append_text("Chrome")
+        self.select_program = gtk.combo_box_new_text()
+        self.select_program.connect('changed', self.on_select_change)
+        self.refresh_app_list()
+        
+        self.add_text = gtk.Entry()
+        
+        add_label = gtk.Label("Add a new app")
+        
         add_button = gtk.Button("Add")
+        add_button.connect('clicked', self.on_add_app)
+        
+        self.remove_button = gtk.Button("Remove")
+        self.remove_button.set_sensitive(False)
+        self.remove_button.connect('clicked', self.on_remove_app)
+        
+        self.table2.attach(add_label, 0,1,0,1)
+        self.table2.attach(self.add_text, 1,2,0,1)
         self.table2.attach(add_button, 2,3, 0,1)
-        self.table2.attach(label, 0,1,0,1)
-        self.table2.attach(select_program, 1,2,0,1)
+        self.table2.attach(self.remove_button, 2,3,1,2)
+        self.table2.attach(label, 0,1,1,2)
+        self.table2.attach(self.select_program, 1,2,1,2)
+        
         for i,c in enumerate(self.COMBINATIONS):
             label = gtk.Label(c.capitalize())
             label.set_alignment(1,0.5)
-            self.table2.attach(label, 0,1,i+1,i+2)
+            self.table2.attach(label, 0,1,i+2,i+3)
             
             entry = gtk.Entry()
             key = settings.get(c.replace('-', ''))
             entry.set_name(c)
             if key:
                 entry.set_text(key)
-            self.table2.attach(entry, 1,2, i+1, i+2)
+            self.table2.attach(entry, 1,2, i+2, i+3)
         frame_local.add(self.table2)
         hbox.pack_start_defaults(frame)
         hbox.pack_start_defaults(frame_local)
@@ -92,6 +108,24 @@ class settingsGmsFrame(gtk.Window):
         self.connect("destroy", self.on_close)
         self.show_all()
 
+    def on_select_change(self, widget):
+        if self.select_program.get_active() < 0:
+            self.remove_button.set_sensitive(False)
+        else:
+            self.remove_button.set_sensitive(True)
+        self.refresh_app_inputs()
+            
+    def refresh_app_inputs(self):
+        pass
+        
+        
+    def on_remove_app(self, widget):
+        model = self.select_program.get_model()
+        active = self.select_program.get_active()
+        if active < 0:
+            return
+        gestures.remove_app(model[active][0])
+        self.select_program.remove_text(active)
     def on_set(self, widget):
         
         self.mody = gtk.Window()
@@ -107,6 +141,16 @@ class settingsGmsFrame(gtk.Window):
         label = gtk.Label("Press a key...")
         self.mody.add(label)
         self.mody.show_all()
+    def on_add_app(self, widget):        
+        gestures.add_app(self.add_text.get_text())
+        self.select_program.append_text(self.add_text.get_text())
+        self.select_program.set_active(len(self.select_program.get_model())-1)
+        
+        
+    def refresh_app_list(self):
+        #self.select_program.set_model(None)
+        for p in gestures.get_apps():
+            self.select_program.append_text(p[1])
         
     def on_grab(self, widget, event):
         
