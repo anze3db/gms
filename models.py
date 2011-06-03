@@ -39,9 +39,35 @@ class gestures():
        return r 
     
     @classmethod
+    def get_app_gestures(cls, name):
+        id_app = gestures._get_id_from_name(name)
+        cmd = "SELECT * FROM gestures WHERE id_app = ?"
+        return db.q(cmd, (str(id_app)),).fetchall()  
+        
+            
+    @classmethod
+    def _get_id_from_name(cls, name):
+        cmd = "SELECT * FROM apps WHERE name = ?"
+        r = db.q(cmd, (name,)).fetchall()
+
+        if r == []:
+            return 0
+        else:
+            return r[0]['id']
+
+    @classmethod
     def add_app(cls, name):
         cmd = "INSERT INTO apps (name) VALUES(?)"
         db.q(cmd, (name,))
+    
+    @classmethod      
+    def add_gesture(cls, name, gesture, action):
+        id_app = gestures._get_id_from_name(name)
+        cmd = "DELETE FROM gestures WHERE id_app = ? AND gesture = ?"
+        db.q(cmd, (str(id_app), name))
+        
+        cmd = "INSERT INTO gestures  (id_app, gesture, action) VALUES (?,?,?)"
+        db.q(cmd, (str(id_app), gesture, action)) 
     
     @classmethod
     def remove_app(cls, name):
@@ -53,15 +79,6 @@ class gestures():
         cmd = "DELETE FROM gestures WHERE id_app = ?"
         db.q(cmd, (app_id,))
         
-    @classmethod
-    def _get_id_from_name(cls, name):
-        cmd = "SELECT * FROM apps WHERE name = ?"
-        r = db.q(cmd, (name,)).fetchall()
-
-        if r == []:
-            return 0
-        else:
-            return r[0]['id']
         
 
 if __name__ == '__main__':
@@ -70,6 +87,8 @@ if __name__ == '__main__':
     # gestures.remove_app('323')
     for i in gestures.get_apps():
         print i, i[1]   
+    gestures.add_gesture('chrome', 'down', 'Bla')
+    print gestures.get_app_gestures('chrome')
         
         
      

@@ -12,7 +12,7 @@ class settingsGmsFrame(gtk.Window):
     
     def __init__(self):
         super(settingsGmsFrame, self).__init__()
-        
+        self.no_saving = True
         self.set_title(self.TITLE)
         self.set_position(gtk.WIN_POS_CENTER)
         self.set_border_width(10)
@@ -30,7 +30,7 @@ class settingsGmsFrame(gtk.Window):
                         'up-left', 'up-right', 'down-left', 'down-right' 
                        ]
                        
-        frame = gtk.Frame("Globalne nastavitve")  
+        frame = gtk.Frame("Global settings")  
         self.table = gtk.Table(2, 2, False)
         self.table.set_col_spacings(10)
         self.table.set_border_width(10)  
@@ -48,12 +48,12 @@ class settingsGmsFrame(gtk.Window):
             
         frame.add(self.table)        
         
-        frame_local = gtk.Frame("Lokalno")
+        frame_local = gtk.Frame("Application specific settings")
         
         self.table2 = gtk.Table(2, 2, False)
         self.table2.set_col_spacings(10)
         self.table2.set_border_width(10) 
-        label = gtk.Label("Izberi program:")
+        label = gtk.Label("Choose a program:")
         label.set_alignment(1,0.5)
         self.select_program = gtk.combo_box_new_text()
         self.select_program.connect('changed', self.on_select_change)
@@ -83,10 +83,10 @@ class settingsGmsFrame(gtk.Window):
             self.table2.attach(label, 0,1,i+2,i+3)
             
             entry = gtk.Entry()
-            key = settings.get(c.replace('-', ''))
+            entry.connect('changed', self.on_specific_changed)
+            
             entry.set_name(c)
-            if key:
-                entry.set_text(key)
+            
             self.table2.attach(entry, 1,2, i+2, i+3)
         frame_local.add(self.table2)
         hbox.pack_start_defaults(frame)
@@ -107,17 +107,42 @@ class settingsGmsFrame(gtk.Window):
         
         self.connect("destroy", self.on_close)
         self.show_all()
-
+        
+    def on_specific_changed(self, widget):
+        if self.no_saving:
+            return
+        model = self.select_program.get_model()
+        active = self.select_program.get_active()
+        if active < 0:
+            return
+        # print "saving", model[active][0], widget.get_name(), widget.get_text()
+        gestures.add_gesture(model[active][0], widget.get_name(), widget.get_text())
+        
     def on_select_change(self, widget):
+        self.no_saving = True
         if self.select_program.get_active() < 0:
             self.remove_button.set_sensitive(False)
         else:
             self.remove_button.set_sensitive(True)
         self.refresh_app_inputs()
+        self.no_saving = False
             
     def refresh_app_inputs(self):
-        pass
-        
+        active = self.select_program.get_active() 
+        if active >= 0:
+            model = self.select_program.get_model()
+            name = model[active][0]
+            arr = gestures.get_app_gestures(name)
+            for child in self.table2.get_children():
+                if type(child) != type(gtk.Entry()):
+                    continue
+                was_set = False
+                for a in arr:
+                    if child.get_name() == a[1]:
+                        was_set = True
+                        child.set_text(a[2])
+                if not was_set:
+                    child.set_text("")
         
     def on_remove_app(self, widget):
         model = self.select_program.get_model()
@@ -141,11 +166,12 @@ class settingsGmsFrame(gtk.Window):
         label = gtk.Label("Press a key...")
         self.mody.add(label)
         self.mody.show_all()
+        
     def on_add_app(self, widget):        
         gestures.add_app(self.add_text.get_text())
         self.select_program.append_text(self.add_text.get_text())
         self.select_program.set_active(len(self.select_program.get_model())-1)
-        
+        self.add_text.set_text("")
         
     def refresh_app_list(self):
         #self.select_program.set_model(None)
