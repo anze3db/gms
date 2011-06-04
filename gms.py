@@ -7,7 +7,7 @@ Created on Apr 11, 2011
 from sys import exit
 from Xlib import display
 from thread import start_new_thread
-from models import settings
+from models import settings, gestures
 superPressed = False
 rightMousePressed = False
 frame = False
@@ -21,7 +21,7 @@ def openSettings():
 
 def OnKeyDown(event):
     global superPressed
-        
+    
     if event.Key == settings.get('default_key'):
         superPressed = True
         
@@ -34,7 +34,7 @@ def OnMouseDown(event):
     global rightMousePressed
     global superPressed
     global frame
-
+    
     mouse = settings.get('mouse')
     if not mouse:
         mouse = 'middle'
@@ -51,6 +51,8 @@ def OnMouseDown(event):
         
 def OnMoseUp(event):
     mouse = settings.get('mouse')
+    global window_name
+    window_name = (event.WindowName, event.WindowProcName) 
     if not mouse:
         mouse = 'middle'
     if event.MessageName == 'mouse ' + mouse + ' up':
@@ -62,15 +64,21 @@ def record_mouse_pos():
     global rightMousePressed
     while rightMousePressed:
         gesture.append(mousepos())
+    
     parse_gesture(gesture)
 
 def find_gesture(gesture):
-    
-    key = settings.get(gesture)
+    global window_name
+    app_gesture = gestures.find_gesture(window_name, gesture)
+    if app_gesture == []:
+        key = settings.get(gesture)
+    else:
+        key = str(app_gesture[0][0])
+
     if key:
         import os
         os.system('xsendkeys +'+key)
-
+    
 def parse_gesture(coordinates):
     #print coordinates
     sumX = 0
