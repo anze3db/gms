@@ -44,6 +44,7 @@ class settingsGmsFrame(gtk.Window):
             entry.set_name(c)
             if key:
                 entry.set_text(key)
+            entry.connect('changed', self.on_global_changed)
             self.table.attach(entry, 1,2, i, i+1)
             
         frame.add(self.table)        
@@ -107,7 +108,8 @@ class settingsGmsFrame(gtk.Window):
         
         self.connect("destroy", self.on_close)
         self.show_all()
-        
+    def on_global_changed(self, widget):
+        settings.set(widget.get_name().replace('-', ''), widget.get_text()) 
     def on_specific_changed(self, widget):
         if self.no_saving:
             return
@@ -199,12 +201,7 @@ class settingsGmsFrame(gtk.Window):
         
     def on_close(self,widget):
         #print self.down.get_text()
-        
-        for child in self.table.get_children():
-            
-            if child.get_name() in self.COMBINATIONS:
-                
-                settings.set(child.get_name().replace('-', ''), child.get_text())
+
                 #print "downright anyoine?", child.get_name().replace('-', ''), child.get_text()
                 
         self.hide_all()
