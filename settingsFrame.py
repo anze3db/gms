@@ -33,11 +33,11 @@ class SettingsFrame(gtk.Window):
         #valign = gtk.Alignment(0, 1, 0, 0)
         #vbox.pack_start(valign)
         
-        
+        frame = gtk.Frame("Settings")
         
         self.table = gtk.Table(4, 4, False)
         self.table.set_col_spacings(10)
-              
+        self.table.set_border_width(10) 
         label = gtk.Label("Set default key:")
         label.set_alignment(1,0.5)
         self.set = gtk.Button(str(settings.get("default_key")))
@@ -75,7 +75,8 @@ class SettingsFrame(gtk.Window):
         align.add(close)
         vbox.pack_end_defaults(align)
         
-        vbox.pack_start_defaults(self.table)
+        frame.add(self.table)
+        vbox.pack_start_defaults(frame)
         vbox.pack_end_defaults(align)
         
         halign = gtk.Alignment(0, 1, 0, 0)

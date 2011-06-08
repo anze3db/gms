@@ -4,15 +4,13 @@ Created on Apr 11, 2011
 
 @authors: Anze, Matic, Miha
 '''
-
 from sys import exit
 from Xlib import display
 from thread import start_new_thread
-from models import settings
+from models import settings, gestures
 superPressed = False
 rightMousePressed = False
 frame = False
- 
 
 def openSettings():
     from settingsFrame import SettingsFrame
@@ -23,13 +21,12 @@ def openSettings():
 
 def OnKeyDown(event):
     global superPressed
-        
+    
     if event.Key == settings.get('default_key'):
         superPressed = True
         
 def OnKeyUp(event):
     global superPressed
-    
     if event.Key == settings.get('default_key'):
         superPressed = False
         
@@ -38,11 +35,10 @@ def OnMouseDown(event):
     global superPressed
     global frame
     
-    #frame.setClicked(event.WindowName)
     mouse = settings.get('mouse')
     if not mouse:
         mouse = 'middle'
-    print mouse
+
     if event.MessageName == 'mouse ' + mouse + ' down':
         rightMousePressed = True
         
@@ -55,9 +51,10 @@ def OnMouseDown(event):
         
 def OnMoseUp(event):
     mouse = settings.get('mouse')
+    global window_name
+    window_name = (event.WindowName, event.WindowProcName) 
     if not mouse:
         mouse = 'middle'
-    print event.MessageName
     if event.MessageName == 'mouse ' + mouse + ' up':
         global rightMousePressed
         rightMousePressed = False
@@ -67,19 +64,21 @@ def record_mouse_pos():
     global rightMousePressed
     while rightMousePressed:
         gesture.append(mousepos())
+    
     parse_gesture(gesture)
 
-
 def find_gesture(gesture):
-    
-    key = settings.get(gesture)
+    global window_name
+    app_gesture = gestures.find_gesture(window_name, gesture)
+    if app_gesture == []:
+        key = settings.get(gesture)
+    else:
+        key = str(app_gesture[0][0])
+
     if key:
         import os
         os.system('xsendkeys +'+key)
-        
-        
-
-
+    
 def parse_gesture(coordinates):
     #print coordinates
     sumX = 0
@@ -113,9 +112,7 @@ def parse_gesture(coordinates):
     
     gestureX = ''
     gestureY = ''
-    
-    #print abs(sumX), abs(sumY)
-    
+
     if abs(sumX) > SENSITIVITY:
         d = coordinates[0][0] - coordinates[-1][0]
         if d >= 0:
@@ -140,34 +137,23 @@ def mousepos():
 # EVENT: 'MessageName', 'Position', 'Window', 'WindowName', 'WindowProcName'
 
 def setup_hookers():
-    import pyxhook as pimp
+    import pyxhook as hook
     
-    hooker = pimp.HookManager()
+    h = hook.HookManager()
     
     # Keyboard start hookin':
-    hooker.HookKeyboard()
-    hooker.KeyDown = OnKeyDown
-    hooker.KeyUp = OnKeyUp
+    h.HookKeyboard()
+    h.KeyDown = OnKeyDown
+    h.KeyUp = OnKeyUp
     
     # Mouse start hookin':
-    hooker.HookMouse()
-    hooker.MouseAllButtonsDown = OnMouseDown
-    hooker.MouseAllButtonsUp = OnMoseUp
-    hooker.setDaemon(True)
-    hooker.start()
-    
+    h.HookMouse()
+    h.MouseAllButtonsDown = OnMouseDown
+    h.MouseAllButtonsUp = OnMoseUp
+    h.setDaemon(True)
+    h.start()
     
 
 if __name__ == "__main__":
-    
-    parse_gesture(                  
-                  [(840, 54), (840, 54), (840, 54), (840, 55), (840, 59), (838, 75), (838, 89), (840, 115), (850, 156), (850, 222), (850, 291), (847, 322), (845, 382), (838, 414), (835, 471), (835, 495), (826, 519), (817, 584), (815, 619), (815, 638), (811, 660), (811, 671), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (811, 678), (809, 678)]
-                  )
-    
-    
-    
-    # Show indicator applet
-    
-
-    
+    pass
  
