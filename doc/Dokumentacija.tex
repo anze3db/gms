@@ -178,11 +178,20 @@ V tem oknu nastavimo, katera akcija se bo izvedla ob kateri gesti, lahko pa doda
 Program gms je napisan v programskem jeziku \inline{Python}. Za uporabniški vmesnik nastavitev je uporabljeno ogrodje \inline{GTK}, za dodajanje ikone v kotiček za obveščanje je uporabiljen \inline{IndicatorApplet}, za zajemanje premikov miške in tipk tipkovnice in tudi za izvajanje akcij, pa smo uporabili knjižnico \inline{Xlib}. Za prepoznavanje miškinih gest smo uporabili lasten algoritem.
 \br
 Za \inline{Python} smo se odločili, ker kljub svoji visoko-nivojski naravi, prek množice knjižnic, omogoča dostop do nizko-nivojskih dogajanj operacijskega sistema. Knjižnica, ki smo jo za implementacijo najbolj potrebovali je \inline{Xlib} -- z njo je implementirano tako zajemanje miške in tipkovnice(zajemanje gibanja in pritiska tipk), kot tudi izvajanje akcij (pošiljanje tipk tipkovnice). 
-\\[1.5cm]
+\br
+V modulu \inline{pyxhook} s pomočjo modula \inline{record}, ki se nahaja v knjižnici \inline{XLib}, lovimo pritisnjene tipke. Prav tako imamo v \inline{pyxhook} izdelan vmesnik za priklapljanje (hookanje) dogodkov, ki ga izkoriščamo v modulu \inline{gms}. \inline{gms} je glavni modul naše aplikacije, saj se tu priklopimo na dogodke \inline{keyboard button down},\inline{keyboard button up}, \inline{mouse button down},\inline{moue button up}, ki so definirani v modulu \inline{pyxhook} in na podlagi teh dogodkov preverjamo geste in izvajamo akcije. Ko se en od teh dogodkov sproži dobimo povratno informacijo, na katero se odzovemo tako, da preverimo, če ima pritisnjena tipka pomen v uporabniških nastavitvah. Če je bila npr. pritisnjena tipka za začetek geste, začnemo shranjevati pozicijo miške v namenski seznam koordinat, če pa je bila pritisnjena tipka za konec geste pa preverimo, če koordinate v seznamu predstavljajo neko gesto. Če je algoritem za detekcijo gest prepoznal izvedeno gesto preda podatek o izvedeni gesti modulu za izvedbo akcij. Modul za izvedbo akcij prebere akcijo iz nastavitev in jo izvede s pomočjo knjižnice \inline{xsendkeys}.\br
+Nastavitve shranjujemo v \inline{sqlite 3} podatkovno bazo, do nje pa dostopamo preko namenskega modula \inline{models}. V modulu \inline{models} imamo napisan preprost vmesnik za dostop do nastavitev npr. \inline{set, get, delete} metode za delo z nastavitvami in namenske metode za delo s shranjenimi gestami. Za modul \inline{models} smo tudi napisali preprost razred \inline{dbutils}, ki abstrahira delo s podatkovno bazo tako, da nam v modulu \inline{models} ni bilo potrebno skrbeti za povezovanje na podatkovno bazo. \inline{dbutils} nam prav tako omogoča, da preprosto zamenjamo podatkovno bazo \inline{sqlite 3}, s katero drugo, če bi bilo to potrebno.
+\br
+Grafični vmesnik smo izdelali v ogrodju \inline{GTK}, razdeljen pa je v dva modula. Prvi skrbi za prikaz globalnih nastavitev, v drugem pa je napisana logika za dodajanje in spreminjanje gest. Oba modula komunicirata z modulom \inline{models}, preko katerega prikazujeta in shranjujeta nastavitve.
+\br
 \pic{0.5}{./logoPython.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \pic{0.2}{./logoGTK.jpg}\\[1cm]
 \. \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \pic{0.25}{./logoX.png}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \pic{0.15}{./logoAppindicator.png}
+\br
+
+
+
 \chapter{Nadaljno delo}
 Program se kljub temu, da je že pripravljen za uporabo, širi v praktično vse smeri.\\
 Na eni strani lahko napišemo boljši algoritem za prepoznavanje gest, ki bo prepoznaval tudi višje-nivojske geste (npr. gesto \inline{Gor--Dol--Gor--Levo--Desno}). Možno bi bilo zajemati podatke na nižjem nivoju, kar bi omogočalo da preprečimo programu, da bi prejel miškin klik in izvedel privzeto akcijo. Lahko bi poboljšali tudi izvajanje gest, ki so trenutno omejene na pošiljanje tipk tipkovnice, ne pošiljajo pa signalov operacijskemu sistemu naj, npr. minimizira neko okno, ali zažene nek program ali skripto. Lahko bi tudi izboljšali uporabniško izkušnjo tako, da bi uporabnik videl grafično sled miške, medtem, ko bi izvajal gesto.

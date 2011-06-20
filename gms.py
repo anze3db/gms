@@ -21,7 +21,7 @@ def openSettings():
 
 def OnKeyDown(event):
     global superPressed
-    
+
     if event.Key == settings.get('default_key'):
         superPressed = True
         

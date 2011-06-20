@@ -24,3 +24,5 @@
 *.snm
 *.vrb
 ref/*
+/.settings/
+/nbproject/private/

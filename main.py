@@ -16,7 +16,7 @@ class AppIndicator:
 
         # create a menu
         self.menu = gtk.Menu()
-
+        
         # create items for the menu - labels, checkboxes, radio buttons and images are supported:
         
         title = gtk.MenuItem("Linux Mouse Gestures")

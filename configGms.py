@@ -24,6 +24,8 @@ class settingsGmsFrame(gtk.Window):
         
         vbox = gtk.VBox(False, 10)
         hbox = gtk.HBox(False, 10)
+        
+        
 
 
         self.COMBINATIONS = ['left', 'right', 'up', 'down', 
@@ -186,6 +188,7 @@ class settingsGmsFrame(gtk.Window):
         #print event.keyval
         
         if event.keyval == 65513:
+            
             key = "Alt_L"
         elif event.keyval == 65515:
             key = "Super_L"
